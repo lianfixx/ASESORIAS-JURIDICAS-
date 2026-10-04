@@ -20,3 +20,12 @@ jobs:
         run: python3 -m unittest discover -s tests -v
       - name: Construir paquetes en almacenamiento temporal
         run: python3 scripts/build.py --output /tmp/milla-build
+      - name: Incluir fuente publica exacta sin historial ni credenciales
+        run: git archive --format=zip --output=/tmp/milla-build/MILLA_CODIGO_FUENTE.zip HEAD
+      - name: Conservar paquetes para revision y descarga
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2, SHA contrastado con repositorio oficial
+        with:
+          name: milla-metodologia-${{ github.sha }}
+          path: /tmp/milla-build/
+          if-no-files-found: error
+          retention-days: 30
