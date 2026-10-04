@@ -23,3 +23,11 @@ La revisión legal del tratamiento, transferencias y excepciones se realiza para
 Detener la difusión, conservar la evidencia necesaria, escalar a la responsable, evaluar datos/destinatarios/impacto y activar la respuesta legal aplicable. No reportar públicamente un incidente pegando información sensible. Borrar el archivo actual no necesariamente elimina historial de Git, clones o cachés. Si se expuso un secreto, revocarlo; si se expusieron datos, evaluar contención, historial y obligaciones de comunicación.
 
 La revisión automatizada es un control auxiliar, no un detector completo de información personal ni una certificación de anonimización. La revisión humana antes de publicar es indispensable.
+
+## Distribución auditada desde 0.2.0
+
+`PUBLIC_FILES.json` es la lista explícita de archivos públicos. Un archivo no incluido no entra en el ZIP fuente; un archivo no previsto dentro de la skill o versionado en Git bloquea la validación. No introducir datos de clientes en el inventario para silenciar un error. Revisar contenido y cambios antes de ampliar la lista.
+
+El escaneo cubre todos los archivos inventariados, busca patrones limitados y reporta ubicación/categoría sin reproducir el valor. Puede omitir nombres, mensajes, imágenes, datos contextualizados o secretos no reconocidos. No es anonimización ni certificación. La autorización de licencia no es consentimiento de clientes.
+
+Los estados privados quedan fuera del repositorio. La huella de un documento detecta cambios de bytes; no autentica aprobaciones. CODEOWNERS sólo señala revisor mientras no se activen reglas de rama. La configuración inicial se encontró sin protección de `main`: no se presenta esa protección como activada por esta edición.

@@ -1,6 +1,6 @@
 # MILLA ABOGADOS · Asesorías jurídicas asistidas
 
-**Versión 0.1.0 · Piloto supervisado · México configurable · 4 de octubre de 2026**
+**Versión 0.2.0 · Piloto supervisado · México configurable · 4 de octubre de 2026**
 
 Una metodología portable para pasar de la información inicial de un cliente a una asesoría, un diagnóstico comprensible y una ruta de actuación documentada. Conserva el estilo institucional de MILLA ABOGADOS y exige revisión de la persona abogada responsable. No es un abogado autónomo, un repertorio de leyes siempre vigente ni una garantía de resultado.
 
@@ -49,6 +49,16 @@ La plantilla tiene campos de captura: **no es un diagnóstico final de ningún c
 
 La biblioteca pública almacena método; los expedientes permanecen separados y privados. Leer [seguridad](SECURITY.md), [recapitulación](docs/RECAPITULACION.md), [mejoras y actualización](docs/MEJORAS_Y_ACTUALIZACION.md) y [evaluación](docs/PRUEBAS.md).
 
-No se ha elegido una licencia abierta para autorizar la redistribución o comercialización de la metodología. La visibilidad pública no sustituye esa decisión. Las autorizaciones de uso de terceros deben confirmarse con quien administra el repositorio.
+## Licencia para otros profesionales
+
+Las aportaciones originales públicas de esta edición se ofrecen bajo **Apache-2.0**. Se permite usarlas, adaptarlas y redistribuirlas, incluso en servicios remunerados, conservando los avisos y señalando cambios conforme a la licencia. No concede uso de marca para aparentar afiliación ni autorización para ejercer una profesión. Los expedientes privados y los materiales de terceros no se licencian por estar relacionados con esta metodología.
+
+Leer [LICENSE](LICENSE), [NOTICE](NOTICE), [uso y atribución](USO_Y_LICENCIA.md) y [contribuciones](CONTRIBUTING.md). No se exige publicar mejoras privadas ni documentos de clientes. La atribución del método no debe confundirse con la identidad del despacho que presta el servicio.
+
+## Auditoría y migración
+
+La edición 0.2.0 corrige inclusión accidental de archivos, manifestaciones excesivas de privacidad, entradas JSON defectuosas y aprobaciones no vinculadas a una versión concreta. El [informe de auditoría](docs/AUDITORIA_0.2.0.md) identifica evidencia, correcciones y límites. El esquema de estado cambia a 2: [migración supervisada](docs/MIGRACION_0.2.0.md). No se trasladan aprobaciones automáticamente.
+
+Los paquetes se construyen desde [PUBLIC_FILES.json](PUBLIC_FILES.json), no desde una búsqueda indiscriminada. El escaneo es heurístico y no certifica anonimización. Las evaluaciones de respuestas de otros modelos continúan pendientes.
 
 Esta edición no incluye acceso a cuentas, credenciales, envíos de WhatsApp, presentación de demandas ni monitoreo normativo permanente. Los scripts no emiten opiniones jurídicas ni calculan vencimientos procesales. Los documentos finales y las decisiones jurídicas requieren aprobación profesional humana.

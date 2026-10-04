@@ -2,8 +2,9 @@
 name: milla-asesoria-juridica
 description: Guía paso a paso para recibir un asunto jurídico, preparar asesoría de 30–45 minutos, resumen preliminar, diagnóstico, documentos, honorarios, negociación y seguimiento bajo supervisión profesional. Úsala con expedientes de clientes, asesorías de la titular, preguntas sobre vías y trámites o revisiones de la metodología MILLA ABOGADOS. Adapta materia y jurisdicción; no sustituye investigación ni aprobación humana.
 compatibility: Lectura Markdown portable. Requiere fuentes actuales o navegador para verificar derecho vigente; Python 3.10+ sólo para controles auxiliares. No concede permisos externos.
+license: Apache-2.0
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
   language: "es-MX"
   jurisdiction: "Mexico-configurable"
   release_date: "2026-10-04"
@@ -49,6 +50,7 @@ El límite orientativo no aplica cuando el usuario pide un documento completo, i
 
 ## Referencias que debes leer según la tarea
 
+- [Licencia y uso por otros profesionales](references/uso-licencia.md).
 - [Flujo y asesoría](references/flujo.md).
 - [Investigación, evidencia y plazos](references/investigacion.md).
 - [Negociación y práctica institucional](references/negociacion.md).
@@ -94,3 +96,9 @@ Los scripts `scripts/control.py` ayudan a revisar estructura, condiciones regist
 ## Retroalimentación
 
 Al recibir una corrección, registra: regla afectada, ejemplo sintético, motivo, fuente, riesgo, propuesta y prueba. Aplica una instrucción segura al documento actual cuando esté autorizada, pero no cambies el método general silenciosamente. Nunca conviertas una preferencia circunstancial, dato de cliente o error de la IA en regla permanente. Lee `references/actualizacion.md` para configurar responsables, validar cambios y migrar versiones.
+
+## Edición y controles
+
+La edición 0.2.0 usa estado de esquema 2. Las aprobaciones para emitir o actuar deben identificar acción, documento, versión y huella SHA-256 del archivo efectivamente revisado. Cambiar el documento obliga a revisar nuevamente la aprobación; un JSON no autentica a la persona que autoriza. No migres estados viejos otorgando aprobaciones ni conviertas un test verde en permiso.
+
+El repositorio público contiene método, no expedientes. Los datos privados se mantienen fuera de la biblioteca y de sus paquetes. El escaneo técnico tiene falsos positivos y negativos: no certifica anonimato.

@@ -1,2 +1,2 @@
 # Opcional: sólo para generar una plantilla Word, no para ejecutar la skill o tests.
-python-docx>=1.1,<2
+python-docx==1.2.0

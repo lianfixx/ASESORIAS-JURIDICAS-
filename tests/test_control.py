@@ -20,16 +20,21 @@ def ready_state(action='emitir_diagnostico'):
     for key in ('privacy', 'conflict'):
         s[key] = dict(reviewed=True, reviewed_by='REVISORA SINTETICA', evidence_ref='DEMO-P01')
     s['counsel'] = dict(assigned=True, professional_ref='DEMO-PROF')
-    s['sources'] = [dict(status='VERIFICADA', reference='FUENTE SINTETICA', locator='APARTADO DEMO', checked_on='2026-10-04')]
-    s['approvals'] = [dict(action=action, approved_by='REVISORA SINTETICA', date='2026-10-04', evidence_ref='DEMO-A01')]
+    s['sources'] = [dict(id='SRC-001', status='VERIFICADA', reference='FUENTE SINTETICA', locator='APARTADO DEMO', checked_on='2026-10-04')]
+    s['documents'] = [dict(id='DOC-001', version='1', sha256='a'*64, status='revisado', source_ids=['SRC-001'])]
+    s['approvals'] = [dict(action=action, document_id='DOC-001', document_version='1', document_sha256='a'*64, approved_by='REVISORA SINTETICA', date='2026-10-04', evidence_ref='DEMO-A01')]
     return s
+
+
+def checked(state, gate=None):
+    return c.validate(state, gate, 'DOC-001' if gate else None, 'a'*64 if gate else None)
 
 
 class ControlTests(unittest.TestCase):
     def test_initial_structure(self):
-        self.assertEqual(c.validate(c.new_state('ABC-001')), [])
+        self.assertEqual(checked(c.new_state('ABC-001')), [])
     def test_initial_cannot_emit(self):
-        self.assertTrue(c.validate(c.new_state('ABC-001'), 'emitir_diagnostico'))
+        self.assertTrue(checked(c.new_state('ABC-001'), 'emitir_diagnostico'))
     def test_id_rejects_name(self):
         with self.assertRaises(ValueError): c.new_state('Nombre Apellido')
     def test_id_rejects_path(self):
@@ -59,47 +64,47 @@ class ControlTests(unittest.TestCase):
     def test_excess_credit(self):
         with self.assertRaises(ValueError): c.phase_totals(dict(amount='1000', tax_mode='incluido', tax_rate='0', credit_gross='1001', instalments=['0']))
     def test_synthetic_recorded_conditions(self):
-        self.assertEqual(c.validate(ready_state(), 'emitir_diagnostico'), [])
+        self.assertEqual(checked(ready_state(), 'emitir_diagnostico'), [])
     def test_no_approval_no_emission(self):
         s = ready_state(); s['approvals'] = []
-        self.assertTrue(c.validate(s, 'emitir_diagnostico'))
+        self.assertTrue(checked(s, 'emitir_diagnostico'))
     def test_urgent_not_normal_flow(self):
         s = ready_state(); s['risk']['level'] = 'urgente'
-        self.assertTrue(c.validate(s, 'emitir_diagnostico'))
+        self.assertTrue(checked(s, 'emitir_diagnostico'))
     def test_reading_must_be_registered(self):
         s = ready_state(); s['reading']['items'] = []
-        self.assertTrue(c.validate(s, 'emitir_diagnostico'))
+        self.assertTrue(checked(s, 'emitir_diagnostico'))
     def test_counsel_required(self):
         s = ready_state(); s['counsel']['assigned'] = False
-        self.assertTrue(c.validate(s, 'emitir_diagnostico'))
+        self.assertTrue(checked(s, 'emitir_diagnostico'))
     def test_sending_requires_scope(self):
         s = ready_state('enviar_propuesta')
-        self.assertTrue(c.validate(s, 'enviar_propuesta'))
+        self.assertTrue(checked(s, 'enviar_propuesta'))
     def test_sending_recorded_scope(self):
         s = ready_state('enviar_propuesta'); s['engagement'] = dict(accepted=True, scope='ALCANCE SINTETICO', evidence_ref='DEMO-C01')
-        self.assertEqual(c.validate(s, 'enviar_propuesta'), [])
+        self.assertEqual(checked(s, 'enviar_propuesta'), [])
     def test_other_action_approval_insufficient(self):
-        self.assertTrue(c.validate(ready_state(), 'presentar_actuacion'))
+        self.assertTrue(checked(ready_state(), 'presentar_actuacion'))
     def test_unverified_deadline(self):
         s = ready_state('enviar_propuesta'); s['deadlines'] = [dict(verified=False)]
-        self.assertTrue(c.validate(s, 'enviar_propuesta'))
+        self.assertTrue(checked(s, 'enviar_propuesta'))
     def test_verified_deadline_missing_support(self):
         s = c.new_state('A'); s['deadlines'] = [dict(verified=True, due_on='2026-10-04')]
-        self.assertTrue(c.validate(s))
+        self.assertTrue(checked(s))
     def test_source_missing_locator(self):
-        s = c.new_state('A'); s['sources'] = [dict(status='VERIFICADA', reference='DEMO', checked_on='2026-10-04')]
-        self.assertTrue(c.validate(s))
+        s = c.new_state('A'); s['sources'] = [dict(id='SRC-001', status='VERIFICADA', reference='DEMO', checked_on='2026-10-04')]
+        self.assertTrue(checked(s))
     def test_bad_date(self):
         self.assertFalse(c.iso_day('2026-02-30'))
     def test_bad_nested_type(self):
         s = c.new_state('A'); s['privacy'] = None
-        self.assertTrue(c.validate(s))
+        self.assertTrue(checked(s))
     def test_wrong_version(self):
         s = c.new_state('A'); s['skill_version'] = '99'
-        self.assertTrue(c.validate(s))
+        self.assertTrue(checked(s))
     def test_unknown_fact(self):
         s = c.new_state('A'); s['facts'] = [dict(id='H1', status='GANADO', source_ref='DEMO')]
-        self.assertTrue(c.validate(s))
+        self.assertTrue(checked(s))
     def test_duplicate_json_key(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder)/'state.json'; path.write_text('{"stage":1,"stage":2}', encoding='utf-8')

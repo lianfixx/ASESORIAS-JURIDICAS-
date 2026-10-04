@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Copyright 2026 lianfixx and contributors. SPDX-License-Identifier: Apache-2.0
 """Genera una plantilla institucional EN BLANCO. No emite un diagnostico de cliente."""
 from __future__ import annotations
 import argparse
@@ -15,6 +16,8 @@ def generate(output: Path) -> None:
     except ImportError as exc:
         raise RuntimeError('Instala la dependencia opcional: python3 -m pip install -r requirements-documentos.txt') from exc
     doc = Document()
+    doc.core_properties.author = "lianfixx y colaboradores; plantilla MILLA Asesorías"
+    doc.core_properties.subject = "Plantilla en blanco Apache-2.0; sin afiliación ni dictamen aprobado"
     sec = doc.sections[0]
     sec.page_width, sec.page_height = Inches(8.5), Inches(11)
     sec.top_margin, sec.bottom_margin = Inches(.8), Inches(.7)
@@ -107,6 +110,7 @@ def generate(output: Path) -> None:
     box('Revisión profesional.', 'El despacho compromete preparación y diligencia dentro del alcance acordado; no garantiza decisiones de autoridades o terceros. La versión para cliente requiere revisión, datos correctos y aprobación de la persona abogada responsable.')
     text('Responsable: [Nombre y habilitación verificados]\nVersión y fecha real de aprobación: [Datos]\nFirma: [Mecanismo legítimo, no insertar por cuenta de la IA]')
     text('La plantilla no acredita asesoría prestada, contratación, pago, autorización o presentación de actuaciones.',True)
+    text('Origen: MILLA Asesorías · lianfixx y colaboradores · Apache-2.0. Conservar LICENSE y NOTICE al redistribuir la plantilla. Otros profesionales deben adaptar membrete, folios y datos; no implica afiliación ni aval de MILLA ABOGADOS.', True)
     output.parent.mkdir(parents=True,exist_ok=True)
     if output.exists(): raise FileExistsError('La salida ya existe; elige otro nombre para no sobrescribirla.')
     doc.save(output)

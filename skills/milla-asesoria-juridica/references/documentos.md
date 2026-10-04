@@ -18,6 +18,10 @@
 
 La denominación «dictamen» requiere decidir alcance, información y revisión suficientes; no se utiliza para dar apariencia de certeza. Si sólo se solicita resumen, emitir RESUMEN PRELIMINAR DEL CASO.
 
+## Identidad del despacho usuario
+
+Un profesional externo conserva la atribución de origen conforme a Apache-2.0, pero sustituye membrete, prefijo de folio, responsables, firmas y canales por los suyos. Los ejemplos MA corresponden a la plantilla original, no a autorización de afiliación. No reproducir datos profesionales de una persona que no interviene.
+
 ## Folio y versión
 
 Encabezado superior derecho en cada página: `[NOMBRE DEL CLIENTE] | MA-[INICIALES]/[NN]`. Mantener un identificador interno único del asunto para evitar colisiones entre personas, años o materias. El número corresponde a emisión documental, no a cada borrador. Las revisiones conservan folio y cambian versión; no borrar una edición emitida.

@@ -32,7 +32,7 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(len({s['id'] for s in ss}), len(ss))
         self.assertTrue(all(s['url'].startswith('https://') and s['locator'] for s in ss))
     def test_no_binary_case_files(self):
-        self.assertTrue(all(p.suffix in {'.md','.json','.py'} for p in b.package_files()))
+        self.assertTrue(all(p.suffix in {'.md','.json','.py'} or p.name in {'LICENSE','NOTICE'} for p in b.package_files()))
     def test_build_outputs_and_hashes(self):
         with tempfile.TemporaryDirectory() as folder:
             manifest = b.build(Path(folder))
@@ -41,7 +41,7 @@ class PackageTests(unittest.TestCase):
     def test_zip_single_top_directory(self):
         with tempfile.TemporaryDirectory() as folder:
             b.build(Path(folder))
-            with zipfile.ZipFile(Path(folder)/'milla-asesoria-juridica-0.1.0.zip') as archive:
+            with zipfile.ZipFile(Path(folder)/f'milla-asesoria-juridica-{b.release()["version"]}.zip') as archive:
                 self.assertTrue(all(n.startswith('milla-asesoria-juridica/') for n in archive.namelist()))
                 self.assertIn('milla-asesoria-juridica/SKILL.md', archive.namelist())
                 self.assertFalse(any('..' in Path(n).parts for n in archive.namelist()))
@@ -57,8 +57,15 @@ class PackageTests(unittest.TestCase):
     def test_build_rejects_skill_output(self):
         with self.assertRaises(ValueError): b.build(b.SKILL/'dist')
     def test_durations(self):
-        self.assertEqual(sum([4,3,5,6,6,4,2]), 30)
-        self.assertEqual(sum([5,5,8,9,8,6,4]), 45)
+        text = (b.SKILL/'references/flujo.md').read_text()
+        slots = re.findall(r'\| (\d+)–(\d+) \| (\d+)–(\d+) \|', text)
+        self.assertEqual(len(slots), 7)
+        for column, total in ((0,30),(2,45)):
+            end = 0
+            for row in slots:
+                start, stop = map(int, row[column:column+2])
+                self.assertEqual(start, end); self.assertGreater(stop, start); end = stop
+            self.assertEqual(end, total)
 
 
 if __name__ == '__main__': unittest.main()

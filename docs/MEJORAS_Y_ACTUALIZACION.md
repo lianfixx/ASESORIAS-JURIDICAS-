@@ -21,7 +21,7 @@ La herramienta puede registrar problemas y proponer cambios. No se reentrena, no
 - MINOR: nueva plantilla, módulo o control compatible, con revisión.
 - MAJOR: modificación de alcance, flujo, estructura de estado o reglas sustantivas que exige migración.
 
-Son reglas de mantenimiento propuestas para esta biblioteca, no normas jurídicas. La primera edición es 0.1.0 porque requiere validación operativa de la titular y pruebas en los productos que se usarán.
+Son reglas de mantenimiento propuestas, no normas jurídicas. Mientras el proyecto sea 0.x, un cambio incompatible se identifica incrementando MINOR y documentando migración. La edición 0.2.0 introduce esquema 2 y mantiene el estado de piloto supervisado: no acredita validación de la titular ni pruebas en otros modelos.
 
 ## Momentos de revisión
 
@@ -35,7 +35,7 @@ Registrar de manera agregada y disociada: preguntas repetidas, afirmaciones sin 
 
 ## Configuración pendiente de la firma
 
-La titular debe aprobar: protocolo de conflictos, alcance profesional por materia, tarifas/costos internos, descuentos y créditos, calendario de seguimiento, política de retención, proveedores autorizados, personas revisoras y licencia de distribución. Hasta entonces esos puntos son pendientes, no decisiones adoptadas por la IA.
+La titular debe aprobar: protocolo de conflictos, alcance profesional por materia, tarifas/costos internos, descuentos y créditos, calendario de seguimiento, política de retención, proveedores autorizados, personas revisoras y condiciones internas de distribución. La licencia pública Apache-2.0 fue autorizada para esta edición; no están autorizadas por ello las demás políticas. Hasta entonces esos puntos son pendientes, no decisiones adoptadas por la IA.
 
 ## Publicación segura
 

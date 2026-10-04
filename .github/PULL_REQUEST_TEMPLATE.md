@@ -14,3 +14,6 @@
 - [ ] No hay envios, firmas, cobros o presentaciones automaticas.
 
 Aprobacion profesional: [pendiente / evidencia de aprobacion]. No incluir expediente ni firma del cliente.
+
+- [ ] Dispongo de derechos para contribuir y declaro material de terceros; Apache-2.0 según CONTRIBUTING.md.
+- [ ] LICENSE, NOTICE y lista de archivos públicos revisados se conservan en paquetes.

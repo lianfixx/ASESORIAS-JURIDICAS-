@@ -1,7 +1,7 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "purpose": "Plantilla de configuracion institucional. Completar datos reales fuera del repositorio publico.",
-  "brand": "MILLA ABOGADOS",
+  "brand": "[NOMBRE DEL DESPACHO USUARIO]",
   "responsible_professional": null,
   "professional_verification_ref": null,
   "operator_role": "por_confirmar",
@@ -18,5 +18,6 @@
   "technical_maintainer": null,
   "followup_policy_ref": null,
   "retention_policy_ref": null,
-  "distribution_license": "pendiente_de_decision_del_titular"
+  "distribution_license": "Apache-2.0",
+  "method_origin": "MILLA Asesorías; no implica afiliación"
 }
