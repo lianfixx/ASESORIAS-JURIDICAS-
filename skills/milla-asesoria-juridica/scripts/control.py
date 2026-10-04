@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Controles auxiliares de estado y aritmetica; no decide ni autoriza actos juridicos."""
+# Copyright 2026 lianfixx and contributors. SPDX-License-Identifier: Apache-2.0
+"""Control estructural e integridad registrada; no autentica ni autoriza actos juridicos."""
 from __future__ import annotations
 import argparse
 import copy
 from datetime import date
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -17,57 +19,82 @@ GATES = {'emitir_diagnostico', 'enviar_propuesta', 'presentar_actuacion'}
 CENT = Decimal('0.01')
 
 
+def nonempty(value: object) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
+def member(value: object, options: set) -> bool:
+    return isinstance(value, str) and value in options
+
+
+def identifier(value: object) -> bool:
+    return isinstance(value, str) and re.fullmatch(r'[A-Z0-9][A-Z0-9_-]{0,63}', value) is not None
+
+
+def digest(value: object) -> bool:
+    return isinstance(value, str) and re.fullmatch(r'[0-9a-f]{64}', value) is not None
+
+
 def load_json(path: Path) -> dict:
+    if path.stat().st_size > 2 * 1024 * 1024:
+        raise ValueError('JSON demasiado grande para este control.')
     def unique(pairs):
         result = {}
         for key, value in pairs:
             if key in result:
-                raise ValueError(f'Clave JSON duplicada: {key}')
+                raise ValueError('Clave JSON duplicada; revisar archivo.')
             result[key] = value
         return result
-    obj = json.loads(path.read_text(encoding='utf-8'), object_pairs_hook=unique)
+    def reject(_):
+        raise ValueError('Constante JSON no estandar.')
+    try:
+        obj = json.loads(path.read_text(encoding='utf-8'), object_pairs_hook=unique, parse_constant=reject)
+    except RecursionError as exc:
+        raise ValueError('JSON demasiado anidado.') from exc
     if not isinstance(obj, dict):
-        raise ValueError('Se requiere un objeto JSON, no una lista o un valor suelto.')
+        raise ValueError('Se requiere un objeto JSON.')
     return obj
 
 
 def new_state(case_id: str, synthetic: bool = False) -> dict:
-    if not re.fullmatch(r'[A-Z0-9][A-Z0-9_-]{0,63}', case_id):
-        raise ValueError('Usa un ID interno de 1 a 64 caracteres: A-Z, 0-9, _ o -; no el nombre del cliente.')
-    obj = copy.deepcopy(load_json(SKILL / 'assets/estado.ejemplo.json'))
+    if not identifier(case_id) or type(synthetic) is not bool:
+        raise ValueError('ID interno de 1–64 caracteres A-Z, 0-9, _ o - y synthetic booleano; no usar nombres.')
+    obj = copy.deepcopy(load_json(SKILL/'assets/estado.ejemplo.json'))
     obj.update(case_id=case_id, synthetic=synthetic)
     return obj
 
 
 def money(value: object) -> Decimal:
-    if not isinstance(value, str) or not re.fullmatch(r'\d+(?:\.\d{1,2})?', value):
-        raise ValueError('Los importes deben ser textos no negativos con hasta dos decimales, sin simbolos ni comas.')
+    if not isinstance(value, str) or not re.fullmatch(r'[0-9]{1,15}(?:\.[0-9]{1,2})?', value):
+        raise ValueError('Importe como texto no negativo: hasta 15 enteros y dos decimales, sin simbolos ni comas.')
     return Decimal(value).quantize(CENT)
 
 
 def phase_totals(phase: dict) -> dict:
+    if not isinstance(phase, dict):
+        raise ValueError('Etapa de honorarios debe ser objeto.')
     amount = money(phase.get('amount'))
     mode = phase.get('tax_mode')
-    if mode not in {'incluido', 'adicional'}:
-        raise ValueError('Debes indicar si el impuesto esta incluido o es adicional; no se presume.')
+    if not member(mode, {'incluido', 'adicional'}):
+        raise ValueError('Indicar impuesto incluido o adicional; no se presume.')
     raw_rate = phase.get('tax_rate')
-    if not isinstance(raw_rate, str) or not re.fullmatch(r'\d+(?:\.\d+)?', raw_rate):
-        raise ValueError('Indica la tasa aprobada como texto decimal; no existe tasa predeterminada.')
+    if not isinstance(raw_rate, str) or not re.fullmatch(r'[01](?:\.[0-9]{1,8})?', raw_rate):
+        raise ValueError('Tasa aprobada como texto decimal entre 0 y 1, hasta ocho decimales.')
     rate = Decimal(raw_rate)
     if not Decimal('0') <= rate <= Decimal('1'):
-        raise ValueError('La tasa debe estar entre 0 y 1.')
+        raise ValueError('Tasa fuera de 0–1.')
     gross = (amount * (Decimal('1') + rate)).quantize(CENT, rounding=ROUND_HALF_UP) if mode == 'adicional' else amount
     credit = money(phase.get('credit_gross', '0.00'))
     if credit > gross:
-        raise ValueError('El credito no puede superar el importe bruto de la etapa.')
+        raise ValueError('Credito superior al importe bruto.')
     total = gross - credit
     payments = phase.get('instalments')
-    if not isinstance(payments, list) or not payments:
-        raise ValueError('Falta un calendario de importes; no se genera un anticipo por defecto.')
-    paid_plan = sum((money(item) for item in payments), Decimal('0.00'))
-    if paid_plan != total:
-        raise ValueError(f'El calendario suma {paid_plan:.2f} y debe sumar {total:.2f}; diferencia {paid_plan-total:.2f}.')
-    return {'gross': f'{gross:.2f}', 'credit_gross': f'{credit:.2f}', 'total': f'{total:.2f}', 'instalments_sum': f'{paid_plan:.2f}'}
+    if not isinstance(payments, list) or not 1 <= len(payments) <= 1000:
+        raise ValueError('Falta calendario de 1–1000 pagos; no se genera anticipo por defecto.')
+    planned = sum((money(item) for item in payments), Decimal('0.00'))
+    if planned != total:
+        raise ValueError(f'Calendario {planned:.2f}; total {total:.2f}; diferencia {planned-total:.2f}.')
+    return {'gross': f'{gross:.2f}', 'credit_gross': f'{credit:.2f}', 'total': f'{total:.2f}', 'instalments_sum': f'{planned:.2f}'}
 
 
 def iso_day(value: object) -> bool:
@@ -77,136 +104,184 @@ def iso_day(value: object) -> bool:
         return False
 
 
-def validate(state: dict, gate: str | None = None) -> list[str]:
-    """Revisa estructura y evidencia registrada. No autentica documentos ni aprobaciones."""
+def checked_day(value: object) -> bool:
+    return iso_day(value) and date.fromisoformat(value) <= date.today()
+
+
+def hash_document(path: Path) -> str:
+    if any(p.is_symlink() for p in (path.absolute(), *path.absolute().parents)) or not path.is_file() or not 0 < path.stat().st_size <= 25*1024*1024:
+        raise ValueError('Documento requerido: archivo regular de 1 byte a 25 MiB, sin enlace simbolico.')
+    result = hashlib.sha256()
+    with path.open('rb') as stream:
+        for block in iter(lambda: stream.read(65536), b''):
+            result.update(block)
+    return result.hexdigest()
+
+
+def validate(state: dict, gate: str | None = None, document_id: str | None = None, document_sha256: str | None = None) -> list[str]:
+    """Valida el registro; el llamador aporta la huella del archivo actual, no una firma."""
     errors = []
-    if state.get('schema_version') != 1:
-        errors.append('schema_version debe ser 1; revisar migracion.')
-    if state.get('skill_version') != '0.1.0':
-        errors.append('Version distinta; revisar compatibilidad antes de continuar.')
-    if not isinstance(state.get('case_id'), str) or not re.fullmatch(r'[A-Z0-9][A-Z0-9_-]{0,63}', state.get('case_id', '')):
-        errors.append('Falta ID interno valido.')
-    if state.get('stage') not in STAGES:
-        errors.append('Etapa desconocida.')
-    objects = ('jurisdiction', 'risk', 'reading', 'conflict', 'privacy', 'counsel', 'engagement', 'fees')
-    for key in objects:
+    if not isinstance(state, dict):
+        return ['El estado debe ser objeto.']
+    info = load_json(SKILL/'assets/release.json')
+    if type(state.get('schema_version')) is not int or state['schema_version'] != info['schema_version']:
+        errors.append('Esquema distinto; requiere migracion revisada, no concesion automatica de aprobaciones.')
+    if state.get('skill_version') != info['version']:
+        errors.append('Version distinta; revisar compatibilidad.')
+    if not identifier(state.get('case_id')):
+        errors.append('ID interno invalido.')
+    if type(state.get('synthetic')) is not bool:
+        errors.append('synthetic debe ser booleano.')
+    if not member(state.get('stage'), STAGES):
+        errors.append('Etapa desconocida o tipo incorrecto.')
+    for key in ('jurisdiction', 'risk', 'reading', 'conflict', 'privacy', 'counsel', 'engagement', 'fees'):
         if not isinstance(state.get(key), dict):
             errors.append(f'{key} debe ser objeto.')
-    for key in ('facts', 'sources', 'deadlines', 'approvals'):
-        if not isinstance(state.get(key), list):
-            errors.append(f'{key} debe ser lista.')
+    for key in ('facts', 'sources', 'deadlines', 'approvals', 'documents'):
+        if not isinstance(state.get(key), list) or len(state[key]) > 10000:
+            errors.append(f'{key} debe ser lista de hasta 10000 entradas.')
     if errors:
         return errors
+    for key, flag in [('jurisdiction','verified'),('reading','complete'),('conflict','reviewed'),('privacy','reviewed'),('counsel','assigned'),('engagement','accepted'),('fees','approved')]:
+        if type(state[key].get(flag)) is not bool:
+            errors.append(f'{key}.{flag} debe ser booleano.')
+    if not member(state['risk'].get('level'), {'ordinario','urgente','sin_revisar'}):
+        errors.append('Nivel de riesgo invalido.')
+    items = state['reading'].get('items')
+    if not isinstance(items, list) or not all(nonempty(x) for x in items):
+        errors.append('Cobertura de lectura: se requieren referencias de texto no vacias.')
+    seen = {'facts': set(), 'sources': set(), 'documents': set()}
+    for key in seen:
+        for record in state[key]:
+            if not isinstance(record, dict) or not identifier(record.get('id')):
+                errors.append(f'{key}: registro sin ID valido.')
+            elif record['id'] in seen[key]:
+                errors.append(f'{key}: ID duplicado.')
+            else:
+                seen[key].add(record['id'])
     for fact in state['facts']:
-        if not isinstance(fact, dict) or fact.get('status') not in FACT_STATES or not fact.get('id') or not fact.get('source_ref'):
-            errors.append('Cada hecho requiere id, estado valido y referencia de origen.')
+        if not isinstance(fact, dict) or not member(fact.get('status'), FACT_STATES) or not nonempty(fact.get('source_ref')):
+            errors.append('Hecho sin estado valido o referencia de origen.')
+    sources = {}
     for source in state['sources']:
-        if not isinstance(source, dict) or source.get('status') not in {'VERIFICADA', 'PARCIAL', 'NO_VERIFICADA'}:
+        if not isinstance(source, dict) or not member(source.get('status'), {'VERIFICADA','PARCIAL','NO_VERIFICADA'}):
             errors.append('Fuente con estado invalido.')
             continue
-        if source['status'] == 'VERIFICADA' and (not source.get('locator') or not source.get('reference') or not iso_day(source.get('checked_on'))):
-            errors.append('Fuente marcada verificada sin referencia, localizador o fecha ISO valida.')
+        if identifier(source.get('id')):
+            sources[source['id']] = source
+        if source['status'] == 'VERIFICADA' and (not all(nonempty(source.get(k)) for k in ('reference','locator')) or not checked_day(source.get('checked_on'))):
+            errors.append('Fuente verificada sin referencia/localizador/fecha valida, o fechada en el futuro.')
     for deadline in state['deadlines']:
-        if not isinstance(deadline, dict):
-            errors.append('Plazo debe ser objeto.')
+        if not isinstance(deadline, dict) or type(deadline.get('verified')) is not bool:
+            errors.append('Plazo sin objeto o indicador booleano.')
+        elif deadline['verified'] and (not all(nonempty(deadline.get(k)) for k in ('legal_source','trigger_evidence','calendar','reviewed_by')) or not iso_day(deadline.get('due_on'))):
+            errors.append('Plazo verificado sin fundamento, evento, calendario, revisora o fecha valida.')
+    for doc in state['documents']:
+        if not isinstance(doc, dict):
             continue
-        if deadline.get('verified') is True:
-            required = ('legal_source', 'trigger_evidence', 'calendar', 'reviewed_by', 'due_on')
-            if not all(deadline.get(key) for key in required) or not iso_day(deadline.get('due_on')):
-                errors.append('Plazo marcado verificado sin fundamento, evento, calendario, revisora o fecha valida.')
-    phases = state['fees'].get('phases', [])
+        refs = doc.get('source_ids')
+        if not nonempty(doc.get('version')) or not digest(doc.get('sha256')) or not member(doc.get('status'), {'borrador','revisado','emitido'}):
+            errors.append('Documento sin version, huella SHA-256 o estado valido.')
+        if not isinstance(refs, list) or not all(identifier(x) and x in sources for x in refs):
+            errors.append('Documento con referencias de fuente inexistentes o mal formadas.')
+    for approval in state['approvals']:
+        if not isinstance(approval, dict) or not member(approval.get('action'), GATES) or not identifier(approval.get('document_id')) or not nonempty(approval.get('document_version')) or not digest(approval.get('document_sha256')) or not all(nonempty(approval.get(k)) for k in ('approved_by','evidence_ref')) or not checked_day(approval.get('date')):
+            errors.append('Aprobacion incompleta o sin version/huella/fecha valida; requiere revision.')
+    phases = state['fees'].get('phases')
     if not isinstance(phases, list):
         errors.append('fees.phases debe ser lista.')
     else:
-        for number, phase in enumerate(phases, 1):
+        for index, phase in enumerate(phases, 1):
             try:
-                if not isinstance(phase, dict):
-                    raise ValueError('Etapa de honorarios debe ser objeto.')
                 phase_totals(phase)
             except (ValueError, InvalidOperation) as exc:
-                errors.append(f'Honorarios etapa {number}: {exc}')
+                errors.append(f'Honorarios etapa {index}: {exc}')
     if gate is None:
         return errors
-    if gate not in GATES:
-        return errors + ['Control solicitado no reconocido.']
+    if not member(gate, GATES):
+        return errors + ['Control no reconocido.']
+    if errors:
+        return errors
     jurisdiction = state['jurisdiction']
-    if jurisdiction.get('verified') is not True or not all(jurisdiction.get(k) for k in ('country', 'state', 'regime')):
-        errors.append('Jurisdiccion/regimen no verificados.')
+    if jurisdiction['verified'] is not True or not all(nonempty(jurisdiction.get(k)) for k in ('country','state','regime')):
+        errors.append('Jurisdiccion/regimen pendientes.')
     risk = state['risk']
-    if risk.get('level') != 'ordinario' or not risk.get('reviewed_by') or not risk.get('evidence_ref'):
-        errors.append('Riesgo pendiente o urgente: revisar/escalar antes de la ruta ordinaria; no demorar ayuda urgente.')
-    reading = state['reading']
-    if reading.get('complete') is not True or not isinstance(reading.get('items'), list) or not reading['items']:
-        errors.append('Cobertura de lectura insuficientemente documentada.')
-    for key in ('privacy', 'conflict'):
-        item = state[key]
-        if item.get('reviewed') is not True or not item.get('reviewed_by') or not item.get('evidence_ref'):
-            errors.append(f'Revision de {key} pendiente o sin referencia.')
-    if state['counsel'].get('assigned') is not True or not state['counsel'].get('professional_ref'):
+    if risk['level'] != 'ordinario' or not all(nonempty(risk.get(k)) for k in ('reviewed_by','evidence_ref')):
+        errors.append('Riesgo pendiente/urgente: requiere revision, no ruta ordinaria. Este control NO debe retrasar ayuda urgente.')
+    if state['reading']['complete'] is not True or not items:
+        errors.append('Lectura incompleta o sin registro.')
+    for key in ('privacy','conflict'):
+        if state[key]['reviewed'] is not True or not all(nonempty(state[key].get(k)) for k in ('reviewed_by','evidence_ref')):
+            errors.append(f'Revision {key} pendiente o sin referencia.')
+    if state['counsel']['assigned'] is not True or not nonempty(state['counsel'].get('professional_ref')):
         errors.append('Responsable profesional no acreditado en el estado.')
-    if not any(isinstance(s, dict) and s.get('status') == 'VERIFICADA' for s in state['sources']):
-        errors.append('No hay fuentes juridicas verificadas registradas; revisar suficiencia material aparte.')
-    approvals = [a for a in state['approvals'] if isinstance(a, dict) and a.get('action') == gate]
-    if not any(a.get('approved_by') and a.get('evidence_ref') and iso_day(a.get('date')) for a in approvals):
-        errors.append('Falta referencia de aprobacion humana para esta accion concreta.')
-    if phases and (state['fees'].get('approved') is not True or not state['fees'].get('approval_ref')):
-        errors.append('Los honorarios incluidos no constan aprobados.')
-    if gate in {'enviar_propuesta', 'presentar_actuacion'}:
+    docs = [d for d in state['documents'] if d['id'] == document_id]
+    if not identifier(document_id) or not digest(document_sha256) or not docs:
+        errors.append('Identifica el documento y la huella calculada de su archivo actual.')
+    else:
+        doc = docs[0]
+        if doc['sha256'] != document_sha256 or doc['status'] not in {'revisado','emitido'}:
+            errors.append('Archivo distinto del revisado o documento aun en borrador.')
+        if not doc['source_ids'] or any(sources[x]['status'] != 'VERIFICADA' for x in doc['source_ids']):
+            errors.append('Las fuentes utilizadas por este documento no estan verificadas.')
+        approvals = [a for a in state['approvals'] if isinstance(a, dict)]
+        if not any(a.get('action') == gate and a.get('document_id') == document_id and a.get('document_version') == doc['version'] and a.get('document_sha256') == document_sha256 and all(nonempty(a.get(k)) for k in ('approved_by','evidence_ref')) and checked_day(a.get('date')) for a in approvals):
+            errors.append('Falta aprobacion referenciada para esta accion y esta version/huella exacta.')
+    if phases and (state['fees']['approved'] is not True or not nonempty(state['fees'].get('approval_ref'))):
+        errors.append('Honorarios incluidos sin aprobacion referenciada.')
+    if gate in {'enviar_propuesta','presentar_actuacion'}:
         engagement = state['engagement']
-        if engagement.get('accepted') is not True or not engagement.get('scope') or not engagement.get('evidence_ref'):
+        if engagement['accepted'] is not True or not all(nonempty(engagement.get(k)) for k in ('scope','evidence_ref')):
             errors.append('Alcance/mandato para actuar no documentado.')
-        if any(d.get('verified') is not True for d in state['deadlines'] if isinstance(d, dict)):
-            errors.append('Hay plazos pendientes de revision antes de actuar.')
+        if any(d['verified'] is not True for d in state['deadlines']):
+            errors.append('Plazos pendientes de revision antes de actuar.')
     return errors
+
+
+def private_target(target: Path) -> Path:
+    target = target.resolve()
+    roots = [SKILL]
+    roots += [p for p in SKILL.parents if (p/'PUBLIC_FILES.json').is_file() or (p/'.git').exists()]
+    if any(target == root or root in target.parents for root in roots):
+        raise ValueError('El estado privado debe quedar fuera de toda la biblioteca publica y de la skill instalada.')
+    return target
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
-    init = sub.add_parser('init', help='Crear estado privado en blanco; no sobrescribe.')
-    init.add_argument('--id', required=True)
-    init.add_argument('--output', type=Path, required=True)
-    init.add_argument('--synthetic', action='store_true')
-    check = sub.add_parser('check', help='Comprobar estructura; --gate agrega condiciones registradas.')
-    check.add_argument('file', type=Path)
-    check.add_argument('--gate', choices=sorted(GATES))
-    status = sub.add_parser('status', help='Mostrar etapa y siguiente accion registrada.')
-    status.add_argument('file', type=Path)
-    fees = sub.add_parser('fees', help='Revisar solo aritmetica de etapas, no procedencia de impuestos.')
-    fees.add_argument('file', type=Path)
+    init = sub.add_parser('init'); init.add_argument('--id', required=True); init.add_argument('--output', type=Path, required=True); init.add_argument('--synthetic', action='store_true')
+    for name in ('check','status','fees'):
+        command = sub.add_parser(name); command.add_argument('file', type=Path)
+        if name == 'check':
+            command.add_argument('--gate', choices=sorted(GATES)); command.add_argument('--document-id'); command.add_argument('--document', type=Path)
     args = parser.parse_args()
     try:
         if args.command == 'init':
-            target = args.output.resolve()
-            if target == SKILL or SKILL in target.parents:
-                raise ValueError('No crear expedientes dentro de la carpeta distribuible de la skill.')
-            obj = new_state(args.id, synthetic=args.synthetic)
+            target = private_target(args.output); obj = new_state(args.id, args.synthetic)
             target.parent.mkdir(parents=True, exist_ok=True)
             with target.open('x', encoding='utf-8') as handle:
-                json.dump(obj, handle, ensure_ascii=False, indent=2)
-                handle.write('\n')
-            print(f'Estado creado en {target}. Conservar privado; no hay autorizacion ni caso validado.')
+                json.dump(obj, handle, ensure_ascii=False, indent=2); handle.write('\n')
+            print('Estado creado fuera de la biblioteca. No hay autorizacion ni caso validado.')
             return 0
         obj = load_json(args.file)
         if args.command == 'status':
-            print(json.dumps({k: obj.get(k) for k in ('case_id', 'skill_version', 'stage', 'next_action')}, ensure_ascii=False, indent=2))
-            return 0
+            print(json.dumps({k: obj.get(k) for k in ('case_id','skill_version','stage','next_action')}, ensure_ascii=False, indent=2)); return 0
         if args.command == 'fees':
             phases = obj.get('fees', {}).get('phases', [])
-            if not phases:
-                raise ValueError('No hay etapas de honorarios; no se inventara un precio.')
+            if not isinstance(phases, list) or not phases:
+                raise ValueError('No hay etapas validas; no se inventara un precio.')
             print(json.dumps([phase_totals(p) for p in phases], indent=2))
-            print('Solo aritmetica: revisar impuestos, retenciones, alcance, autorizacion y contrato por separado.')
-            return 0
-        errors = validate(obj, args.gate)
+            print('Solo aritmetica; revisar impuestos, retenciones, alcance y contrato por separado.'); return 0
+        if args.gate and (not args.document_id or not args.document):
+            raise ValueError('--gate requiere --document-id y --document para cotejar el archivo real.')
+        current_hash = hash_document(args.document) if args.document else None
+        errors = validate(obj, args.gate, args.document_id, current_hash)
         if errors:
-            print('PENDIENTES / BLOQUEOS REGISTRADOS:\n' + '\n'.join('- ' + e for e in errors))
-            return 1
-        print('Sin inconsistencias detectadas por estos controles. NO acredita verdad, suficiencia juridica ni autorizacion real.')
-        return 0
+            print('PENDIENTES:\n'+'\n'.join('- '+e for e in errors)); return 1
+        print('Sin inconsistencias detectadas. NO autentica aprobacion, veracidad, suficiencia juridica ni autoridad para actuar.'); return 0
     except (OSError, ValueError, TypeError, AttributeError, InvalidOperation) as exc:
-        print(f'Error: {exc}', file=sys.stderr)
-        return 2
+        print(f'Error: {exc}', file=sys.stderr); return 2
 
 
 if __name__ == '__main__':

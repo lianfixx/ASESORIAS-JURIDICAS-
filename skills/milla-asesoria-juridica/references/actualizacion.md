@@ -27,7 +27,7 @@ Si la IA no tiene permisos de GitHub, debe entregar un archivo o parche propuest
 
 ## Revisión del desempeño
 
-Usar `assets/evaluaciones.json`: 24 entradas sintéticas con conducta esperada y fallo crítico. Conservar para cada prueba modelo/producto, versión, fecha, texto de entrada y salida disociada, evaluación y revisora. No atribuir resultados a modelos no ejecutados. Un fallo crítico bloquea aprobación aunque el estilo sea excelente.
+Usar `assets/evaluaciones.json`: entradas sintéticas con conducta esperada y fallo crítico. Conservar para cada prueba modelo/producto, versión, fecha, texto de entrada y salida disociada, evaluación y revisora. No atribuir resultados a modelos no ejecutados. Un fallo crítico bloquea aprobación aunque el estilo sea excelente.
 
 Medir omisiones, preguntas repetidas, afirmaciones sin fuente, errores de montos, datos innecesarios, documentos con marcadores, contradicciones y claridad de siguientes pasos. No equiparar satisfacción del cliente o cobro con corrección jurídica.
 

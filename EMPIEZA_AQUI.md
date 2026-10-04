@@ -7,7 +7,7 @@
 3. Adjunta la guía, el expediente preliminar y la asesoría de la titular, cuando ya exista. Agrega los documentos que realmente soporten las conclusiones. La IA deberá declarar qué pudo leer.
 4. Copia la instrucción siguiente y responde sólo las preguntas pendientes.
 
-> Usa la metodología MILLA Asesorías, versión 0.1.0. Trabaja en modo GUÍA, una etapa cada vez. Primero identifica riesgos urgentes y plazos, jurisdicción, posición del cliente, conflictos de interés y condiciones de privacidad. Extrae la información disponible sin volver a preguntarla. Explica brevemente qué hacemos, por qué importa y cuál es la siguiente decisión. Distingue hechos documentados, manifestaciones e hipótesis. Si pido un resumen, entrega un RESUMEN PRELIMINAR DEL CASO. No inventes leyes, trámites, precios, pagos ni autorizaciones. Toda actuación externa y documento final requieren revisión y autorización humana.
+> Usa la metodología MILLA Asesorías, versión 0.2.0. Trabaja en modo GUÍA, una etapa cada vez. Primero identifica riesgos urgentes y plazos, jurisdicción, posición del cliente, conflictos de interés y condiciones de privacidad. Extrae la información disponible sin volver a preguntarla. Explica brevemente qué hacemos, por qué importa y cuál es la siguiente decisión. Distingue hechos documentados, manifestaciones e hipótesis. Si pido un resumen, entrega un RESUMEN PRELIMINAR DEL CASO. No inventes leyes, trámites, precios, pagos ni autorizaciones. Toda actuación externa y documento final requieren revisión y autorización humana.
 
 ## La primera respuesta esperada
 
