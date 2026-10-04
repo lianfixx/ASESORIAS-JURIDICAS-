@@ -1,5 +1,13 @@
 # Historial de versiones
 
+## 0.2.1 — 2026-10-04 — Licencia explicada sin cambiar permisos
+
+- Reescritura de la explicación con ejemplos: uso profesional, venta de adaptaciones, ausencia de regalías y mejoras privadas.
+- Distingue licencia de aplicación, cesión, marca, habilitación profesional, acceso a datos y responsabilidad ante clientes.
+- Aclara irrevocabilidad condicionada, alcance general de destinatarios y necesidad de decisión expresa para políticas futuras distintas.
+- README, inicio, skill y explicación sincronizados; LICENSE y NOTICE sin modificaciones.
+- Control automático para evitar divergencia entre la explicación raíz y la incluida en la skill. Mantiene esquema 2 y estado de piloto supervisado.
+
 ## 0.2.0 — 2026-10-04 — Licencia abierta y controles revisados
 
 - Apache-2.0 para aportaciones originales públicas; LICENSE/NOTICE completos en fuente, skill y guía universal. Uso comercial permitido, sin licencia de marca ni datos de clientes.

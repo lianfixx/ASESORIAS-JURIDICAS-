@@ -4,7 +4,7 @@ description: Guía paso a paso para recibir un asunto jurídico, preparar asesor
 compatibility: Lectura Markdown portable. Requiere fuentes actuales o navegador para verificar derecho vigente; Python 3.10+ sólo para controles auxiliares. No concede permisos externos.
 license: Apache-2.0
 metadata:
-  version: "0.2.0"
+  version: "0.2.1"
   language: "es-MX"
   jurisdiction: "Mexico-configurable"
   release_date: "2026-10-04"
@@ -99,6 +99,10 @@ Al recibir una corrección, registra: regla afectada, ejemplo sintético, motivo
 
 ## Edición y controles
 
-La edición 0.2.0 usa estado de esquema 2. Las aprobaciones para emitir o actuar deben identificar acción, documento, versión y huella SHA-256 del archivo efectivamente revisado. Cambiar el documento obliga a revisar nuevamente la aprobación; un JSON no autentica a la persona que autoriza. No migres estados viejos otorgando aprobaciones ni conviertas un test verde en permiso.
+Desde la edición 0.2.0 se usa estado de esquema 2. Las aprobaciones para emitir o actuar deben identificar acción, documento, versión y huella SHA-256 del archivo efectivamente revisado. Cambiar el documento obliga a revisar nuevamente la aprobación; un JSON no autentica a la persona que autoriza. No migres estados viejos otorgando aprobaciones ni conviertas un test verde en permiso.
 
 El repositorio público contiene método, no expedientes. Los datos privados se mantienen fuera de la biblioteca y de sus paquetes. El escaneo técnico tiene falsos positivos y negativos: no certifica anonimato.
+
+## Explicar la licencia sin crear permisos ficticios
+
+Si preguntan por Apache, empieza por su efecto práctico: autoriza usar, modificar, compartir y vender copias o adaptaciones sin regalías al proyecto, sujeto a condiciones; no exige compartir mejoras. No es un programa, una cesión de propiedad ni un permiso exclusivo para abogados. Distingue atribución de marca, obra pública de expediente privado, y garantía del software de responsabilidad profesional. Lee [uso y licencia](references/uso-licencia.md). No alteres ni sustituyas una licencia bajo una orden genérica de «corregir»: explica el alcance propuesto y pide decisión expresa para restricciones nuevas. No prometas revocar retroactivamente permisos Apache.
