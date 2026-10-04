@@ -58,7 +58,9 @@ El límite orientativo no aplica cuando el usuario pide un documento completo, i
 - [Otras materias](references/otras-materias.md).
 - [Honorarios y comunicación](references/honorarios-comunicacion.md).
 - [Documentos y diseño institucional](references/documentos.md).
+- [Configuración y mejora continua](references/actualizacion.md).
 - [Plantillas](assets/plantillas.md).
+- [Configuración institucional en blanco](assets/configuracion.ejemplo.json).
 - [Estado de ejemplo](assets/estado.ejemplo.json).
 - [Fuentes de la edición](assets/fuentes.json).
 - [Evaluaciones conductuales](assets/evaluaciones.json).
@@ -91,4 +93,4 @@ Los scripts `scripts/control.py` ayudan a revisar estructura, condiciones regist
 
 ## Retroalimentación
 
-Al recibir una corrección, registra: regla afectada, ejemplo sintético, motivo, fuente, riesgo, propuesta y prueba. Aplica una instrucción segura al documento actual cuando esté autorizada, pero no cambies el método general silenciosamente. Nunca conviertas una preferencia circunstancial, dato de cliente o error de la IA en regla permanente.
+Al recibir una corrección, registra: regla afectada, ejemplo sintético, motivo, fuente, riesgo, propuesta y prueba. Aplica una instrucción segura al documento actual cuando esté autorizada, pero no cambies el método general silenciosamente. Nunca conviertas una preferencia circunstancial, dato de cliente o error de la IA en regla permanente. Lee `references/actualizacion.md` para configurar responsables, validar cambios y migrar versiones.
