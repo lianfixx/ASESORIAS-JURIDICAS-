@@ -1,0 +1,22 @@
+name: Validar metodologia
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  controles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Obtener fuente sin conservar credenciales
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2, SHA contrastado con repositorio oficial
+        with:
+          persist-credentials: false
+      - name: Mostrar Python disponible
+        run: python3 --version
+      - name: Pruebas tecnicas sin API keys ni expedientes
+        run: python3 -m unittest discover -s tests -v
+      - name: Construir paquetes en almacenamiento temporal
+        run: python3 scripts/build.py --output /tmp/milla-build
