@@ -1,6 +1,6 @@
 # MILLA ABOGADOS · Asesorías jurídicas asistidas
 
-**Versión 0.2.0 · Piloto supervisado · México configurable · 4 de octubre de 2026**
+**Versión 0.2.1 · Piloto supervisado · México configurable · 4 de octubre de 2026**
 
 Una metodología portable para pasar de la información inicial de un cliente a una asesoría, un diagnóstico comprensible y una ruta de actuación documentada. Conserva el estilo institucional de MILLA ABOGADOS y exige revisión de la persona abogada responsable. No es un abogado autónomo, un repertorio de leyes siempre vigente ni una garantía de resultado.
 
@@ -49,11 +49,15 @@ La plantilla tiene campos de captura: **no es un diagnóstico final de ningún c
 
 La biblioteca pública almacena método; los expedientes permanecen separados y privados. Leer [seguridad](SECURITY.md), [recapitulación](docs/RECAPITULACION.md), [mejoras y actualización](docs/MEJORAS_Y_ACTUALIZACION.md) y [evaluación](docs/PRUEBAS.md).
 
-## Licencia para otros profesionales
+## Permiso de uso: qué significa Apache-2.0
 
-Las aportaciones originales públicas de esta edición se ofrecen bajo **Apache-2.0**. Se permite usarlas, adaptarlas y redistribuirlas, incluso en servicios remunerados, conservando los avisos y señalando cambios conforme a la licencia. No concede uso de marca para aparentar afiliación ni autorización para ejercer una profesión. Los expedientes privados y los materiales de terceros no se licencian por estar relacionados con esta metodología.
+**Puedes usar, modificar y compartir esta herramienta; también puedes vender copias o adaptaciones sin pagar regalías al proyecto, cumpliendo la licencia.** No tienes que publicar tus mejoras. El permiso no se limita a profesionales previamente autorizados y no sustituye los requisitos para ejercer una profesión.
 
-Leer [LICENSE](LICENSE), [NOTICE](NOTICE), [uso y atribución](USO_Y_LICENCIA.md) y [contribuciones](CONTRIBUTING.md). No se exige publicar mejoras privadas ni documentos de clientes. La atribución del método no debe confundirse con la identidad del despacho que presta el servicio.
+Apache-2.0 es un texto estándar de permisos, no un programa que instalar ni una cesión de propiedad. Los aportantes conservan sus derechos, pero permiten esos usos de forma no exclusiva. No otorga la marca para aparentar afiliación ni acceso a expedientes privados. El titular tampoco puede retirar a voluntad permisos ya concedidos sobre una versión Apache que se utiliza conforme a sus condiciones.
+
+Lee primero la [explicación con ejemplos](USO_Y_LICENCIA.md). El texto jurídico está en [LICENSE](LICENSE) y la atribución en [NOTICE](NOTICE). Al redistribuir material se conservan los avisos pertinentes y se identifican cambios conforme a la licencia. Las [contribuciones](CONTRIBUTING.md) son voluntarias; atribuir el método no obliga a publicar documentos de clientes.
+
+La edición 0.2.1 mejora esta explicación y su coherencia en los paquetes; **no cambia la licencia ya publicada**. Mantiene el esquema de estado 2. Actualizar la guía no crea nuevas aprobaciones ni exige convertir una aprobación antigua en otra sin revisar su alcance.
 
 ## Auditoría y migración
 

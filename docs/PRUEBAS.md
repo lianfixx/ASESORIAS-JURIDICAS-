@@ -1,5 +1,13 @@
 # Registro de pruebas
 
+## Edición 0.2.1 — revisión de claridad de licencia
+
+Se partió de la fuente cuyo árbol Git coincide con `12d41530e9beaab9047b9d14964539beb9b69df1`, integrado en la rama principal para 0.2.0. Se revisó la explicación publicada y se contrastó con Apache License 2.0, su FAQ oficial y la documentación de licencias de GitHub. LICENSE y NOTICE permanecen sin cambios. No se cambian los permisos ni se revocan licencias anteriores.
+
+Las 88 pruebas técnicas de partida se ejecutaron satisfactoriamente. Tras la revisión, se ejecutaron **90 pruebas técnicas locales, todas satisfactorias**, incluidas dos comprobaciones nuevas: identidad de las explicaciones de licencia y bloqueo del paquete si divergen. La validación comprueba coherencia, no interpreta jurídicamente el texto. La ejecución de GitHub debe consultarse por commit; no se presupone su resultado.
+
+No se alteró la plantilla Word ni se repitió su auditoría visual; la revisión visual de seis páginas corresponde a 0.2.0. Tampoco se añadieron pruebas de otros asistentes, una auditoría jurídica integral o controles de protección de rama. Los límites y pendientes de la auditoría anterior continúan aplicando. El esquema del estado sigue siendo 2; una actualización documental no genera aprobaciones ni acredita nuevas revisiones de asuntos.
+
 ## Edición 0.2.0
 
 Ejecución local real del 4 de octubre de 2026, Python 3.13.5: **88 pruebas técnicas, todas satisfactorias**. Se conservaron los 44 tests originales, corrigiendo el test de duración para leer el guion, y se añadieron 44 pruebas de regresión de entradas, permisos registrados, integridad y distribución.

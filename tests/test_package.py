@@ -67,5 +67,17 @@ class PackageTests(unittest.TestCase):
                 self.assertEqual(start, end); self.assertGreater(stop, start); end = stop
             self.assertEqual(end, total)
 
+    def test_license_explanation_copies_match(self):
+        self.assertEqual((ROOT/'USO_Y_LICENCIA.md').read_bytes(),
+                         (b.SKILL/'references/uso-licencia.md').read_bytes())
+    def test_license_explanation_drift_blocks_package(self):
+        from unittest.mock import patch
+        original = Path.read_bytes
+        target = b.SKILL/'references/uso-licencia.md'
+        def changed(path):
+            return original(path) + (b'changed' if path == target else b'')
+        with patch.object(Path, 'read_bytes', changed):
+            self.assertIn('Explicacion de licencia de skill distinta de la canonica.', b.validate_package())
+
 
 if __name__ == '__main__': unittest.main()

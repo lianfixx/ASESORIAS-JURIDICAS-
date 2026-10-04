@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "skill_version": "0.2.0",
+  "skill_version": "0.2.1",
   "case_id": "SINTETICO-001",
   "synthetic": true,
   "stage": "recepcion",

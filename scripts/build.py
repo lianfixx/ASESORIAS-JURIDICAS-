@@ -76,6 +76,7 @@ def source_files() -> list[Path]:
         files.append(path)
     required = {'PUBLIC_FILES.json','LICENSE','NOTICE','USO_Y_LICENCIA.md',
         'skills/milla-asesoria-juridica/LICENSE','skills/milla-asesoria-juridica/NOTICE',
+        'skills/milla-asesoria-juridica/references/uso-licencia.md',
         'skills/milla-asesoria-juridica/SKILL.md','skills/milla-asesoria-juridica/assets/release.json',
         'skills/milla-asesoria-juridica/assets/estado.ejemplo.json',
         'skills/milla-asesoria-juridica/assets/configuracion.ejemplo.json'}
@@ -143,6 +144,8 @@ def validate_package() -> list[str]:
     for filename in ('LICENSE', 'NOTICE'):
         if (ROOT / filename).read_bytes() != (SKILL / filename).read_bytes():
             issues.append(f'{filename} de skill distinto del canonico.')
+    if (ROOT / 'USO_Y_LICENCIA.md').read_bytes() != (SKILL / 'references/uso-licencia.md').read_bytes():
+        issues.append('Explicacion de licencia de skill distinta de la canonica.')
     try:
         state = strict_json(SKILL / 'assets/estado.ejemplo.json')
         config = strict_json(SKILL / 'assets/configuracion.ejemplo.json')

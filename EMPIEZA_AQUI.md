@@ -7,7 +7,7 @@
 3. Adjunta la guía, el expediente preliminar y la asesoría de la titular, cuando ya exista. Agrega los documentos que realmente soporten las conclusiones. La IA deberá declarar qué pudo leer.
 4. Copia la instrucción siguiente y responde sólo las preguntas pendientes.
 
-> Usa la metodología MILLA Asesorías, versión 0.2.0. Trabaja en modo GUÍA, una etapa cada vez. Primero identifica riesgos urgentes y plazos, jurisdicción, posición del cliente, conflictos de interés y condiciones de privacidad. Extrae la información disponible sin volver a preguntarla. Explica brevemente qué hacemos, por qué importa y cuál es la siguiente decisión. Distingue hechos documentados, manifestaciones e hipótesis. Si pido un resumen, entrega un RESUMEN PRELIMINAR DEL CASO. No inventes leyes, trámites, precios, pagos ni autorizaciones. Toda actuación externa y documento final requieren revisión y autorización humana.
+> Usa la metodología MILLA Asesorías, versión 0.2.1. Trabaja en modo GUÍA, una etapa cada vez. Primero identifica riesgos urgentes y plazos, jurisdicción, posición del cliente, conflictos de interés y condiciones de privacidad. Extrae la información disponible sin volver a preguntarla. Explica brevemente qué hacemos, por qué importa y cuál es la siguiente decisión. Distingue hechos documentados, manifestaciones e hipótesis. Si pido un resumen, entrega un RESUMEN PRELIMINAR DEL CASO. No inventes leyes, trámites, precios, pagos ni autorizaciones. Toda actuación externa y documento final requieren revisión y autorización humana.
 
 ## La primera respuesta esperada
 
@@ -40,3 +40,8 @@ El estado contiene: ID interno, fecha, etapa, fuentes leídas, hechos y pendient
 ## Antes de utilizar información identificable
 
 Comprueba responsable y base de tratamiento, personas autorizadas, proveedor y configuración, representación de terceros o niñez, minimización y conservación. La autorización del cliente no resuelve automáticamente los derechos de otras personas ni todas las condiciones del proveedor. Si falta certeza, trabaja con datos verdaderamente disociados o usa un entorno autorizado.
+
+
+## Permiso para compartirla
+
+Apache-2.0 es el permiso de uso y redistribución, no otra herramienta que instalar. Permite también vender adaptaciones sin regalías al proyecto y no exige publicar mejoras. No concede marca, datos privados ni habilitación profesional. Antes de redistribuir, lee [qué permite y qué exige](USO_Y_LICENCIA.md).
