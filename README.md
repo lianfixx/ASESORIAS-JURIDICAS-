@@ -1,68 +1,35 @@
-# MILLA ABOGADOS · Asesorías jurídicas asistidas
+# MILLA Asesorías · licencia profesional controlada
 
-**Versión 0.2.1 · Piloto supervisado · México configurable · 4 de octubre de 2026**
+**Edición 0.3.0 · distribución propietaria · México**
 
-Una metodología portable para pasar de la información inicial de un cliente a una asesoría, un diagnóstico comprensible y una ruta de actuación documentada. Conserva el estilo institucional de MILLA ABOGADOS y exige revisión de la persona abogada responsable. No es un abogado autónomo, un repertorio de leyes siempre vigente ni una garantía de resultado.
+MILLA Asesorías es una metodología y herramienta de apoyo para organizar asesorías jurídicas, diagnósticos, documentos, honorarios, negociación y seguimiento bajo supervisión profesional.
 
-## Comenzar sin programar
+## Acceso y uso
 
-Lee [EMPIEZA_AQUI.md](EMPIEZA_AQUI.md). En un chat o proyecto exclusivo del asunto, adjunta la edición universal de la guía, el expediente preliminar y la asesoría de la titular, si ya existe. Escribe:
+Esta edición **no es software abierto ni una descarga de libre uso**. La herramienta completa se entrega únicamente mediante una **Licencia Profesional escrita, vigente y pagada**.
 
-> Activa MILLA Asesorías en modo GUÍA. Lee los archivos disponibles y distingue lo revisado de lo que sólo se menciona. Antes de avanzar, revisa urgencias, jurisdicción y representación. No repitas preguntas resueltas. Guíame por una etapa cada vez, explica brevemente por qué importa y pide sólo la siguiente información indispensable. No envíes comunicaciones ni asumas honorarios, pagos o autorizaciones.
+La licencia ordinaria permite al profesional o firma autorizada utilizarla internamente en su propio trabajo y cobrar honorarios por los servicios jurídicos que preste a sus clientes.
 
-No incluyas datos identificables en una plataforma hasta comprobar que su uso está autorizado y es adecuado. Este repositorio es público: **no es un expediente de clientes**.
+No permite vender, revender, sublicenciar, publicar, redistribuir, compartir, alojar, ofrecer como servicio, integrar en un producto de terceros ni comercializar una adaptación de la herramienta.
 
-## Qué contiene
+## Diferencia esencial
 
-- Una [skill](skills/milla-asesoria-juridica/SKILL.md) conforme a la estructura Agent Skills: instrucciones breves, referencias, plantillas y scripts auxiliares.
-- Un flujo de recepción, urgencias, resumen, investigación, asesoría de 30–45 minutos, diagnóstico, contratación, negociación, actuación y cierre.
-- Módulos familiares y laborales; rutas de investigación para otras materias. Cada asunto requiere fuentes y competencia verificadas.
-- Plantillas para los entregables y para el estado del asunto, fuentes, honorarios y aprobación.
-- Pruebas técnicas reproducibles y escenarios de evaluación jurídica y comunicativa por una persona revisora.
-- Un proceso de retroalimentación, revisión y versiones. Las mejoras no se incorporan automáticamente ni modifican asuntos activos sin revisión.
+El licenciatario puede cobrar por su asesoría, análisis, representación y documentos específicos para sus clientes. No puede cobrar por vender, rentar, compartir o dar acceso a MILLA Asesorías.
 
-## Dos maneras de utilizarlo
+## Solicitar licencia
 
-**Lectura universal:** una guía Markdown/TXT que puede adjuntarse o leerse por partes en asistentes capaces de procesar texto. No requiere soporte nativo de skills. Su eficacia depende del modelo, su contexto y sus herramientas.
+Consulta [SOLICITAR_LICENCIA.md](SOLICITAR_LICENCIA.md) y escribe a **socios@millabogados.com**.
 
-**Skill nativa:** la carpeta `skills/milla-asesoria-juridica/` para herramientas compatibles. Consulta [instalación y compatibilidad](docs/INSTALACION.md). La documentación de un formato compatible no equivale a una prueba de funcionamiento en todas las aplicaciones.
+La solicitud o el pago aislado no crean una licencia. La autorización debe constar por escrito e identificar, por lo menos, al licenciatario, modalidad, usuarios, versión, plazo, precio y alcance.
 
-## Verificar y generar paquetes
+## Propiedad, marca y responsabilidad
 
-Con Python 3.10 o superior, sin dependencias para las pruebas y el empaquetado:
+La licencia es de uso, no de propiedad. No autoriza el uso de la marca MILLA ABOGADOS o MILLA Asesorías para aparentar afiliación, representación o aval. La herramienta es auxiliar y no sustituye investigación vigente, criterio profesional, habilitación legal, secreto profesional, protección de datos ni revisión humana.
 
-```sh
-python3 -m unittest discover -s tests -v
-python3 scripts/build.py --output dist
-```
+## Versiones históricas
 
-Se generan una guía universal, un ZIP de la skill y un manifiesto SHA-256. El generador de plantilla Word es opcional y requiere `python-docx`:
+Las versiones 0.2.0 y 0.2.1 fueron publicadas bajo Apache License 2.0. Sus permisos históricos no pueden revocarse retroactivamente. La edición 0.3.0 y las versiones posteriores se reservan para licenciamiento comercial controlado. Consulta [AVISO_VERSIONES_HISTORICAS.md](AVISO_VERSIONES_HISTORICAS.md).
 
-```sh
-python3 -m pip install -r requirements-documentos.txt
-python3 scripts/plantilla_docx.py --output dist/Plantilla_Diagnostico_MILLA.docx
-```
+## Estado del repositorio
 
-La plantilla tiene campos de captura: **no es un diagnóstico final de ningún cliente**. Antes de entregar documentos reales hay que revisar fuentes, contenido, aprobación, firmas y el PDF renderizado.
-
-## Gobernanza y límites
-
-La biblioteca pública almacena método; los expedientes permanecen separados y privados. Leer [seguridad](SECURITY.md), [recapitulación](docs/RECAPITULACION.md), [mejoras y actualización](docs/MEJORAS_Y_ACTUALIZACION.md) y [evaluación](docs/PRUEBAS.md).
-
-## Permiso de uso: qué significa Apache-2.0
-
-**Puedes usar, modificar y compartir esta herramienta; también puedes vender copias o adaptaciones sin pagar regalías al proyecto, cumpliendo la licencia.** No tienes que publicar tus mejoras. El permiso no se limita a profesionales previamente autorizados y no sustituye los requisitos para ejercer una profesión.
-
-Apache-2.0 es un texto estándar de permisos, no un programa que instalar ni una cesión de propiedad. Los aportantes conservan sus derechos, pero permiten esos usos de forma no exclusiva. No otorga la marca para aparentar afiliación ni acceso a expedientes privados. El titular tampoco puede retirar a voluntad permisos ya concedidos sobre una versión Apache que se utiliza conforme a sus condiciones.
-
-Lee primero la [explicación con ejemplos](USO_Y_LICENCIA.md). El texto jurídico está en [LICENSE](LICENSE) y la atribución en [NOTICE](NOTICE). Al redistribuir material se conservan los avisos pertinentes y se identifican cambios conforme a la licencia. Las [contribuciones](CONTRIBUTING.md) son voluntarias; atribuir el método no obliga a publicar documentos de clientes.
-
-La edición 0.2.1 mejora esta explicación y su coherencia en los paquetes; **no cambia la licencia ya publicada**. Mantiene el esquema de estado 2. Actualizar la guía no crea nuevas aprobaciones ni exige convertir una aprobación antigua en otra sin revisar su alcance.
-
-## Auditoría y migración
-
-La edición 0.2.0 corrige inclusión accidental de archivos, manifestaciones excesivas de privacidad, entradas JSON defectuosas y aprobaciones no vinculadas a una versión concreta. El [informe de auditoría](docs/AUDITORIA_0.2.0.md) identifica evidencia, correcciones y límites. El esquema de estado cambia a 2: [migración supervisada](docs/MIGRACION_0.2.0.md). No se trasladan aprobaciones automáticamente.
-
-Los paquetes se construyen desde [PUBLIC_FILES.json](PUBLIC_FILES.json), no desde una búsqueda indiscriminada. El escaneo es heurístico y no certifica anonimización. Las evaluaciones de respuestas de otros modelos continúan pendientes.
-
-Esta edición no incluye acceso a cuentas, credenciales, envíos de WhatsApp, presentación de demandas ni monitoreo normativo permanente. Los scripts no emiten opiniones jurídicas ni calculan vencimientos procesales. Los documentos finales y las decisiones jurídicas requieren aprobación profesional humana.
+Este repositorio público funciona únicamente como página informativa de licenciamiento. La herramienta completa, sus plantillas maestras, código, prompts y paquetes instalables no se distribuyen desde la rama principal pública.

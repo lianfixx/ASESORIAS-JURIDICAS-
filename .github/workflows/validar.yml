@@ -1,29 +1,44 @@
-name: Validar metodologia
+name: Validar portal de licenciamiento
+
 on:
   push:
+    branches: [main]
   pull_request:
-  workflow_dispatch:
+    branches: [main]
+
 permissions:
   contents: read
+
 jobs:
-  controles:
+  portal:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
     steps:
-      - name: Obtener fuente sin conservar credenciales
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, SHA contrastado con repositorio oficial
+      - name: Obtener contenido sin conservar credenciales
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
-      - name: Mostrar Python disponible
-        run: python3 --version
-      - name: Pruebas tecnicas sin API keys ni expedientes
-        run: python3 -m unittest discover -s tests -v
-      - name: Construir paquetes en almacenamiento temporal
-        run: python3 scripts/build.py --output /tmp/milla-build
-      - name: Conservar paquetes para revision y descarga
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1, SHA contrastado con repositorio oficial
-        with:
-          name: milla-metodologia-${{ github.sha }}
-          path: /tmp/milla-build/
-          if-no-files-found: error
-          retention-days: 30
+      - name: Verificar portal propietario
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            README.md
+            LICENSE
+            USO_Y_LICENCIA.md
+            AVISO_VERSIONES_HISTORICAS.md
+            MODELO_LICENCIA_PROFESIONAL.md
+            SOLICITAR_LICENCIA.md
+            SECURITY.md
+            CHANGELOG.md
+            AUDITORIA_LICENCIAMIENTO_0.3.0.md
+          )
+          for file in "${required[@]}"; do
+            test -s "$file" || { echo "Falta archivo requerido: $file"; exit 1; }
+          done
+          for path in skills scripts tests PUBLIC_FILES.json NOTICE; do
+            test ! -e "$path" || { echo "Contenido distribuible no permitido en el portal: $path"; exit 1; }
+          done
+          grep -q "Licencia Profesional" LICENSE
+          grep -q "no es software abierto" README.md
+          grep -q "versiones 0.2.0 y 0.2.1" AVISO_VERSIONES_HISTORICAS.md
+          echo "Portal de licenciamiento verificado."
