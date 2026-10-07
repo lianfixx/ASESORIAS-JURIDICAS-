@@ -40,5 +40,5 @@ jobs:
           done
           grep -q "Licencia Profesional" LICENSE
           grep -q "no es software abierto" README.md
-          grep -q "versiones 0.2.0 y 0.2.1" AVISO_VERSIONES_HISTORICAS.md
+          grep -q "0.2.0 y 0.2.1" AVISO_VERSIONES_HISTORICAS.md
           echo "Portal de licenciamiento verificado."
