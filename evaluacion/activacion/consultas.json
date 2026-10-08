@@ -1,0 +1,23 @@
+[
+  {"query": "acaba de llegar una señora que dice que su ex dejó de darle pensión hace tres meses y ya hay dos niñas de por medio. tengo su relato en un word y las notas de la licenciada. ¿por dónde empezamos con este asunto?", "should_trigger": true},
+  {"query": "prepárame el guion de la asesoría de 45 minutos para mañana a las 10, ya tengo el expediente preliminar del cliente y las notas de la titular, que no se me pase lo de plazos y urgencias", "should_trigger": true},
+  {"query": "me pasaron el caso de una cajera despedida de un restaurante en la CDMX. necesito el diagnóstico jurídico preliminar para entregarlo a la clienta, con ruta de actuación y escenarios de cálculo, ya tengo contrato y recibos", "should_trigger": true},
+  {"query": "el cliente dice que no puede pagar todo el anticipo junto. arma una propuesta de honorarios por etapas para que la licenciada la apruebe antes de mandársela", "should_trigger": true},
+  {"query": "la contraparte contestó 'podemos platicarlo' sobre la convivencia de los niños. ¿qué bases le mando y cómo lo entrego para que quede constancia?", "should_trigger": true},
+  {"query": "redáctame un mensaje de seguimiento corto para una prospecta que no responde desde el lunes, ya había confirmado el formulario, que no suene a presión", "should_trigger": true},
+  {"query": "retomo el asunto que llevaba ayer en otro chat y no tengo el historial. aquí te pego el estado exportado y el resumen de continuidad, ¿cuál es la siguiente acción?", "should_trigger": true},
+  {"query": "hazme un resumen preliminar de este caso con la narración de la clienta, separando lo documentado de lo que solo dice ella y marcando los pendientes", "should_trigger": true},
+  {"query": "la contraparte firmó de recibido el sobre con la propuesta de convenio, ¿eso ya cuenta como que aceptó? estamos preparando el siguiente paso del asunto", "should_trigger": true},
+  {"query": "mi clienta trabajó años en un ayuntamiento con contratos trimestrales por honorarios y la corrieron de palabra. ¿qué datos le pido primero y qué urgencias tengo que revisar antes de la asesoría?", "should_trigger": true},
+  {"query": "explícame la diferencia entre dolo y culpa en derecho penal con ejemplos, mañana tengo examen en la facultad", "should_trigger": false},
+  {"query": "escríbeme un discurso de 3 minutos para un foro de jóvenes sobre participación ciudadana y confianza en las instituciones", "should_trigger": false},
+  {"query": "resume las reformas fiscales publicadas esta semana en el Diario Oficial de la Federación y dime qué cambia para las personas morales en general", "should_trigger": false},
+  {"query": "necesito un ensayo de cinco cuartillas sobre la reforma al Poder Judicial y la independencia judicial, con citas en formato APA", "should_trigger": false},
+  {"query": "para una tarea de derecho laboral: ¿qué establece la Constitución sobre la jornada máxima y el salario mínimo? solo quiero repasar el artículo 123", "should_trigger": false},
+  {"query": "hazme una plantilla de contrato de arrendamiento genérica para rentar mi departamento, con cláusulas de depósito y penalización por retraso", "should_trigger": false},
+  {"query": "convierte esta sentencia de 40 páginas en un resumen de diez viñetas para estudiar, no es de ningún cliente, es una tesis publicada que nos dejaron leer", "should_trigger": false},
+  {"query": "ayúdame a armar el sitio web de mi despacho: una portada, una sección de servicios y un formulario de contacto, con estilo sobrio", "should_trigger": false},
+  {"query": "es un ejercicio de mi clase: calcula la liquidación de un trabajador ficticio con salario diario de 350 pesos y tres años de antigüedad, con las fórmulas", "should_trigger": false},
+  {"query": "escribe un correo cordial para pedir una cita con la coordinadora de mi posgrado y preguntarle por las fechas de titulación", "should_trigger": false},
+  {"query": "genera un guion de un podcast de 20 minutos sobre derechos humanos para estudiantes de preparatoria, con tres bloques y preguntas para los invitados", "should_trigger": false}
+]

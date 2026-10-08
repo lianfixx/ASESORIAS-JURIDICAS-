@@ -1,0 +1,23 @@
+{
+  "version": "0.3.1",
+  "purpose": "Plantilla de configuracion institucional. Completar datos reales fuera del repositorio publico.",
+  "brand": "[NOMBRE DEL DESPACHO USUARIO]",
+  "responsible_professional": null,
+  "professional_verification_ref": null,
+  "operator_role": "por_confirmar",
+  "default_country": "MX",
+  "authorized_jurisdictions": [],
+  "approved_subjects": [],
+  "approved_fee_policy_ref": null,
+  "default_deposit_percentage": null,
+  "approved_technology_providers": [],
+  "privacy_policy_ref": null,
+  "secondary_data_uses": [],
+  "external_actions_require_specific_authorization": true,
+  "legal_change_reviewer": null,
+  "technical_maintainer": null,
+  "followup_policy_ref": null,
+  "retention_policy_ref": null,
+  "distribution_license": "LicenseRef-MILLA-Professional-1.0",
+  "method_origin": "MILLA Asesorías; no implica afiliación"
+}
