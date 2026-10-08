@@ -1,44 +1,31 @@
-name: Validar portal de licenciamiento
+name: Validar skill propietaria
 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  portal:
+  skill:
     runs-on: ubuntu-latest
     steps:
       - name: Obtener contenido sin conservar credenciales
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
-      - name: Verificar portal propietario
-        shell: bash
-        run: |
-          set -euo pipefail
-          required=(
-            README.md
-            LICENSE
-            USO_Y_LICENCIA.md
-            AVISO_VERSIONES_HISTORICAS.md
-            MODELO_LICENCIA_PROFESIONAL.md
-            SOLICITAR_LICENCIA.md
-            SECURITY.md
-            CHANGELOG.md
-            AUDITORIA_LICENCIAMIENTO_0.3.0.md
-          )
-          for file in "${required[@]}"; do
-            test -s "$file" || { echo "Falta archivo requerido: $file"; exit 1; }
-          done
-          for path in skills scripts tests PUBLIC_FILES.json NOTICE; do
-            test ! -e "$path" || { echo "Contenido distribuible no permitido en el portal: $path"; exit 1; }
-          done
-          grep -q "Licencia Profesional" LICENSE
-          grep -q "no es software abierto" README.md
-          grep -q "0.2.0 y 0.2.1" AVISO_VERSIONES_HISTORICAS.md
-          echo "Portal de licenciamiento verificado."
+      - name: Pruebas de integración y controles auxiliares
+        run: python3 -m unittest discover -s tests -v
+      - name: Crear paquete y guía universal
+        run: python3 scripts/build.py --output "$RUNNER_TEMP/milla-build"
+      - name: Conservar paquete de esta revisión
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: milla-asesoria-juridica-0.3.1
+          path: ${{ runner.temp }}/milla-build/
+          if-no-files-found: error
+          retention-days: 7

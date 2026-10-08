@@ -1,0 +1,17 @@
+{
+  "source": "activacion-0.2.2.json del bundle aportado",
+  "run_by": "Claude, según el registro aportado; no reejecutado en esta integración",
+  "reported_final": {
+    "activates_expected": "30/30",
+    "activates_unexpected": "0/33",
+    "recorded_description_characters": 202,
+    "packaged_description_characters": 200
+  },
+  "limitations": [
+    "Consultas de ajuste reutilizadas, sin conjunto independiente.",
+    "El informe describe 200 caracteres; el JSON registra 202. No se acredita que la descripción empaquetada sea exactamente la evaluada.",
+    "Lectura de referencias no asegurada en todos los escenarios.",
+    "No hay validación jurídica independiente ni comprobación de todos los fundamentos.",
+    "Las 93 pruebas indicadas por Claude pertenecen a su entorno y versión; no se atribuyen a la 0.3.1."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "version": "0.3.1",
+  "scope": "Lista cerrada de archivos de la skill autorizados para empaquetar; no concede licencia de uso.",
+  "files": [
+    "skills/milla-asesoria-juridica/LICENSE",
+    "skills/milla-asesoria-juridica/LICENSES/Apache-2.0.txt",
+    "skills/milla-asesoria-juridica/NOTICE",
+    "skills/milla-asesoria-juridica/SKILL.md",
+    "skills/milla-asesoria-juridica/assets/configuracion.ejemplo.json",
+    "skills/milla-asesoria-juridica/assets/estado.ejemplo.json",
+    "skills/milla-asesoria-juridica/assets/evaluaciones.json",
+    "skills/milla-asesoria-juridica/assets/fuentes.json",
+    "skills/milla-asesoria-juridica/assets/plantillas.md",
+    "skills/milla-asesoria-juridica/assets/release.json",
+    "skills/milla-asesoria-juridica/references/actualizacion.md",
+    "skills/milla-asesoria-juridica/references/documentos.md",
+    "skills/milla-asesoria-juridica/references/familiar.md",
+    "skills/milla-asesoria-juridica/references/flujo.md",
+    "skills/milla-asesoria-juridica/references/honorarios-comunicacion.md",
+    "skills/milla-asesoria-juridica/references/investigacion.md",
+    "skills/milla-asesoria-juridica/references/laboral.md",
+    "skills/milla-asesoria-juridica/references/negociacion.md",
+    "skills/milla-asesoria-juridica/references/otras-materias.md",
+    "skills/milla-asesoria-juridica/references/privacidad.md",
+    "skills/milla-asesoria-juridica/references/uso-licencia.md",
+    "skills/milla-asesoria-juridica/scripts/control.py"
+  ]
+}

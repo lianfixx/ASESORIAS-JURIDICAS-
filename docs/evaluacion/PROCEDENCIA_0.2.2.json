@@ -1,0 +1,35 @@
+{
+  "integration_version": "0.3.1",
+  "source_skill_version": "0.2.2",
+  "base_commit": "fa4a539d31824b1fdbc5b5c1ebf9cdbee60a2173",
+  "bundle_head": "749345a553de746e1bb5be4e6df05fcbfca92772",
+  "source_files": [
+    {
+      "name": "milla-asesoria-juridica-0.2.2.zip",
+      "sha256": "7d7462e4a2af289fe08b6e00cf92693463bba1768555ed1d0366cab95e1cb665"
+    },
+    {
+      "name": "mejora-evaluacion-guia-0.2.2.bundle",
+      "sha256": "7e9ea30c1d6087c48c4c57b0aa0aa61714b843ddc61975a2428464f04e4bfdb5"
+    }
+  ],
+  "original_results": [
+    {
+      "name": "EVALUACION_0.2.2.md",
+      "bytes": 10592,
+      "sha256": "ac0a7fb3ff6de9f9c586d0e56b4627c5f769ad8b0cae06ff1bb3ca00cbba233d"
+    },
+    {
+      "name": "activacion-0.2.2.json",
+      "bytes": 11984,
+      "sha256": "8a77ace18232435b3e58640ee2e56ea10eb1cb996c3275b2e6c4311e9a8a988f"
+    },
+    {
+      "name": "resultados-0.2.2.json",
+      "bytes": 231683,
+      "sha256": "b87634a08d54301064686f5351fde61d146f816d1f542dd6dcc7fa6730937bad"
+    }
+  ],
+  "review_status": "pendiente_revision_juridica",
+  "note": "Los registros completos originales se conservan en los adjuntos de origen. Este archivo documenta su procedencia, no una nueva ejecución."
+}

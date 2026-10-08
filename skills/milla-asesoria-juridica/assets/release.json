@@ -1,0 +1,9 @@
+{
+  "version": "0.3.1",
+  "schema_version": 2,
+  "released_on": "2026-10-07",
+  "license": "LicenseRef-MILLA-Professional-1.0",
+  "status": "piloto_supervisado",
+  "source_version": "0.2.2",
+  "legal_review": "pendiente"
+}
