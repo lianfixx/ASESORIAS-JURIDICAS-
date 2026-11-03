@@ -1,13 +1,13 @@
 ---
 name: milla-asesoria-juridica
 description: Guía al despacho en un asunto real de cliente (familiar o laboral, México) con urgencias, resumen, asesoría, diagnóstico, honorarios, mensajes a prospectos y retomar asuntos. No para tareas ni teoría.
-compatibility: Lectura Markdown portable. Requiere fuentes actuales o navegador para verificar derecho vigente; Python 3.10+ sólo para controles auxiliares. No concede permisos externos.
 license: LicenseRef-MILLA-Professional-1.0
 metadata:
-  version: "0.3.1"
+  version: "0.3.2"
   language: "es-MX"
   jurisdiction: "Mexico-configurable"
-  release_date: "2026-10-07"
+  release_date: "2026-11-03"
+  compatibility: "Lectura Markdown portable. Requiere fuentes actuales o navegador para verificar derecho vigente; Python 3.10+ solo para controles auxiliares. No concede permisos externos."
 ---
 
 # MILLA · Asesoría jurídica guiada
@@ -116,4 +116,4 @@ Esta edición conserva el régimen propietario adoptado en 0.3.0. Lee [uso y lic
 
 ## Estado de esta integración
 
-Versión 0.3.1: integra las mejoras operativas propuestas en 0.2.2, sin atribuir aprobación jurídica a la titular. Mantiene el estado de piloto supervisado. Los controles técnicos no acreditan vigencia normativa, corrección de respuestas ni instalación permanente en una cuenta de IA.
+Versión 0.3.2: conserva las mejoras operativas de 0.3.1 y corrige la compatibilidad del control de huellas con rutas temporales seguras de macOS, sin atribuir aprobación jurídica a la titular. Mantiene el estado de piloto supervisado. Los controles técnicos no acreditan vigencia normativa, corrección de respuestas ni instalación permanente en una cuenta de IA.

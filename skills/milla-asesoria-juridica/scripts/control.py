@@ -109,10 +109,14 @@ def checked_day(value: object) -> bool:
 
 
 def hash_document(path: Path) -> str:
-    if any(p.is_symlink() for p in (path.absolute(), *path.absolute().parents)) or not path.is_file() or not 0 < path.stat().st_size <= 25*1024*1024:
+    try:
+        resolved = path.resolve(strict=True)
+    except (FileNotFoundError, RuntimeError):
+        raise ValueError('Documento requerido: archivo regular de 1 byte a 25 MiB, sin enlace simbolico.')
+    if path.is_symlink() or not resolved.is_file() or not 0 < resolved.stat().st_size <= 25*1024*1024:
         raise ValueError('Documento requerido: archivo regular de 1 byte a 25 MiB, sin enlace simbolico.')
     result = hashlib.sha256()
-    with path.open('rb') as stream:
+    with resolved.open('rb') as stream:
         for block in iter(lambda: stream.read(65536), b''):
             result.update(block)
     return result.hexdigest()

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LicenseRef-MILLA-Professional-1.0
-"""Controles de integración 0.3.1; no evalúan corrección jurídica ni activación en IA."""
+"""Controles de integración 0.3.2; no evalúan corrección jurídica ni activación en IA."""
 from __future__ import annotations
 import hashlib
 import importlib.util
@@ -42,8 +42,9 @@ class Integracion(unittest.TestCase):
         for filename, key in [('release.json', 'version'), ('estado.ejemplo.json', 'skill_version'),
                               ('configuracion.ejemplo.json', 'version'), ('evaluaciones.json', 'version')]:
             with self.subTest(filename=filename):
-                self.assertEqual(CONTROL.load_json(SKILL / 'assets' / filename)[key], '0.3.1')
-        self.assertIn('version: "0.3.1"', (SKILL / 'SKILL.md').read_text(encoding='utf-8'))
+                self.assertEqual(CONTROL.load_json(SKILL / 'assets' / filename)[key], '0.3.2')
+        self.assertIn('version: "0.3.2"', (SKILL / 'SKILL.md').read_text(encoding='utf-8'))
+        self.assertEqual(CONTROL.load_json(ROOT / 'PUBLIC_FILES.json')['version'], '0.3.2')
 
     def test_04_licencia_conservada(self):
         self.assertEqual((ROOT / 'LICENSE').read_bytes(), (SKILL / 'LICENSE').read_bytes())
@@ -153,6 +154,15 @@ class Integracion(unittest.TestCase):
             path = Path(tmp) / 'sintetico.txt'
             path.write_bytes(b'PRUEBA SINTETICA')
             self.assertEqual(CONTROL.hash_document(path), hashlib.sha256(path.read_bytes()).hexdigest())
+
+    def test_23_huella_rechaza_enlace_simbolico(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            original = Path(tmp) / 'original.txt'
+            link = Path(tmp) / 'enlace.txt'
+            original.write_bytes(b'PRUEBA SINTETICA')
+            link.symlink_to(original)
+            with self.assertRaises(ValueError):
+                CONTROL.hash_document(link)
 
 
 if __name__ == '__main__':

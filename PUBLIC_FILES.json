@@ -1,5 +1,5 @@
 {
-  "version": "0.3.1",
+  "version": "0.3.2",
   "scope": "Lista cerrada de archivos de la skill autorizados para empaquetar; no concede licencia de uso.",
   "files": [
     "skills/milla-asesoria-juridica/LICENSE",

@@ -1,5 +1,12 @@
 # Historial público
 
+## 0.3.2 — 3 de noviembre de 2026
+
+- Se ajustó el frontmatter al formato actual de Codex sin cambiar el alcance jurídico ni la licencia.
+- El cálculo de huellas acepta rutas temporales normales de macOS bajo `/var`, pero sigue rechazando archivos que sean enlaces simbólicos.
+- La batería aumenta a 23 pruebas e incluye una regresión explícita contra enlaces simbólicos.
+- Se actualizaron los metadatos, ejemplos, empaquetado y guía de instalación a 0.3.2.
+
 ## 0.3.1 — 7 de octubre de 2026
 
 - Se incorpora la skill completa y las mejoras operativas propuestas en 0.2.2, sobre la rama propietaria 0.3.0, a petición del titular.

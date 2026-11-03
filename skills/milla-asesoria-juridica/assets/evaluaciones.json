@@ -1,5 +1,5 @@
 {
-  "version": "0.3.1",
+  "version": "0.3.2",
   "purpose": "Escenarios sinteticos para revision humana de respuestas de una IA. No son resultados de pruebas ya ejecutadas en modelos. Los casos con campo 'fixtures' usan expedientes inventados que viven en el repositorio (evaluacion/sinteticos/), no en el paquete instalable.",
   "cases": [
     {
