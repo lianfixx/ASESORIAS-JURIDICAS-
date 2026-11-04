@@ -1,6 +1,6 @@
 # MILLA Asesorías · asesoría jurídica guiada
 
-**Edición 0.4.0 · licencia propietaria · piloto supervisado · México**
+**Edición 0.4.1 · licencia propietaria · piloto supervisado · México**
 
 La skill está en [`skills/milla-asesoria-juridica/SKILL.md`](skills/milla-asesoria-juridica/SKILL.md). Esta edición incorpora las mejoras operativas del paquete 0.2.2 aportado por el titular y conserva las condiciones de licencia adoptadas en 0.3.0. No constituye aprobación jurídica de las respuestas ni instalación automática en una cuenta de IA.
 

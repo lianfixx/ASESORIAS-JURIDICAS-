@@ -14,6 +14,8 @@ En este repositorio, Claude Code tiene estos frenos:
 
 Sólo actúan en Claude Code dentro de este repositorio; no existen en claude.ai, en la guía universal ni en otras IA. No sustituyen las reglas de la skill: que un freno pregunte no equivale a la autorización específica para enviar o actuar, y la búsqueda de datos personales es heurística, no certifica anonimato.
 
+Las mismas reglas valen fuera de Claude Code: están en `ia/REGLAS.md` (generadas de `ia/politica.json`). Con terminal, `sh ia/instalar.sh` las activa como hooks de git para cualquier IA o persona, y GitHub revisa cada push con `registro-ia.yml`. En chat sin frenos (claude.ai, ChatGPT, Gemini), la IA las cumple por sí misma y entrega el registro pendiente. Además, todo commit sin entrada de registro con `Agente:` queda bloqueado.
+
 ## Plan y entrevista
 
 El modo plan (Shift+Tab) investiga y propone sin tocar archivos; antes de aprobarlo, se corrige respondiendo con los cambios. No hay una entrevista adicional: las preguntas siguen «Antes de actuar» (de una a tres por turno, cinco como tope) y no se pregunta lo que ya consta. El modo plan con entrevista sólo aplica a MEJORAR (cambios al método, conforme a [actualización](actualizacion.md)) o a un documento completo pedido desde cero, y siempre dentro de ese límite. Prompt:

@@ -25,7 +25,7 @@ jobs:
       - name: Conservar paquete de esta revisión
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: milla-asesoria-juridica-0.4.0
+          name: milla-asesoria-juridica-0.4.1
           path: ${{ runner.temp }}/milla-build/
           if-no-files-found: error
           retention-days: 7

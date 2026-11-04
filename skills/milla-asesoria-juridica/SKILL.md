@@ -3,7 +3,7 @@ name: milla-asesoria-juridica
 description: Guía al despacho en un asunto real de cliente (familiar o laboral, México) con urgencias, resumen, asesoría, diagnóstico, honorarios, mensajes a prospectos y retomar asuntos. No para tareas ni teoría.
 license: LicenseRef-MILLA-Professional-1.0
 metadata:
-  version: "0.4.0"
+  version: "0.4.1"
   language: "es-MX"
   jurisdiction: "Mexico-configurable"
   release_date: "2026-11-04"
@@ -115,6 +115,14 @@ El repositorio público contiene método, no expedientes. Los datos privados se 
 
 Esta edición conserva el régimen propietario adoptado en 0.3.0. Lee [uso y licencia](references/uso-licencia.md) y `LICENSE`: el acceso al repositorio o a una copia no sustituye la Licencia Profesional escrita, vigente y pagada. Distingue los servicios jurídicos del licenciatario de vender, redistribuir o dar acceso a la herramienta. No concedas permisos nuevos ni atribuyas una licencia a alguien sin evidencia. Los permisos históricos válidamente concedidos y los componentes con aviso propio se conservan; no prometas revocarlos retroactivamente. `LICENSES/Apache-2.0.txt` conserva el texto aplicable a esos componentes, no convierte esta edición completa en una nueva oferta Apache.
 
+## Registro y continuidad entre IA
+
+Estas reglas valen igual en Claude, ChatGPT, Codex, Gemini o cualquier otra IA, y para personas:
+- Empezar por el estado vigente del repositorio remoto (el estado privado del asunto y las últimas entradas del `CHANGELOG.md`), no por la memoria de una conversación ni por lo que diga otra IA.
+- Registrar todo cambio de archivos, estado, entregables o decisiones en el mismo commit, en `CHANGELOG.md` del repositorio y, para cada asunto, su estado privado (nunca en el repositorio). Cada entrada lleva `Agente:` (quién lo hizo y modelo si se conoce), solicitud, cambios, archivos, verificación (aprobado, falló, no ejecutado o bloqueado) y pendiente.
+- Sin escritura en el repositorio, terminar con «Registro pendiente para el repositorio»: la entrada y los cambios exactos, listos para aplicarse. No decir «guardado» si no se escribió.
+- Lo prohibido y lo que requiere confirmación de Emi está en `ia/REGLAS.md` del repositorio; cumplirlo aunque la plataforma no tenga frenos automáticos. El protocolo completo, con plantillas para pasar trabajo a otra IA, está en `ia/PROTOCOLO.md`.
+
 ## Terminado y trabajo en Claude Code
 
 Un pedido está terminado cuando:
@@ -130,4 +138,4 @@ Para frenos activos, reparto en paralelo, `/goal`, `/loop`, programación y nave
 
 ## Estado de esta integración
 
-Versión 0.4.0: conserva las mejoras de 0.3.2 y añade una referencia de trabajo en Claude Code (frenos activos, criterio de terminado, reparto en paralelo y navegador) sin cambiar el método jurídico ni atribuir aprobación jurídica a la titular. Mantiene el estado de piloto supervisado. Los controles técnicos no acreditan vigencia normativa, corrección de respuestas ni instalación permanente en una cuenta de IA.
+Versión 0.4.1: conserva las mejoras de 0.3.2 y 0.4.0 (referencia de trabajo en Claude Code: frenos activos, criterio de terminado, reparto en paralelo y navegador) y añade el registro obligatorio y la continuidad entre IA del protocolo común (`ia/PROTOCOLO.md`), sin cambiar el método jurídico ni atribuir aprobación jurídica a la titular. Mantiene el estado de piloto supervisado. Los controles técnicos no acreditan vigencia normativa, corrección de respuestas ni instalación permanente en una cuenta de IA.
