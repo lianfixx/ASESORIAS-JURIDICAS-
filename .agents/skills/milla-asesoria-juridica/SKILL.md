@@ -1,6 +1,6 @@
 ---
 name: milla-asesoria-juridica
-description: Guía al despacho en un asunto real de cliente (familiar o laboral, México) con urgencias, resumen, asesoría, diagnóstico, honorarios, mensajes a prospectos y retomar asuntos. No para tareas ni teoría.
+description: "Guía al despacho en un asunto real de cliente (familiar o laboral, México) con urgencias, resumen, asesoría, diagnóstico, honorarios, mensajes a prospectos y retomar asuntos. No para tareas ni teoría."
 ---
 
 # Entrada de milla-asesoria-juridica

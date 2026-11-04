@@ -17,7 +17,7 @@ en GitHub, el workflow `registro-ia.yml` revisa cada push. Donde no hay freno au
 - Antes de `git commit`: `python3 -m unittest discover -s tests && d=$(mktemp -d) && python3 scripts/build.py --output "$d" && rm -rf "$d"` debe pasar. Las pruebas o el empaquetado de la skill fallaron.
 - Prohibido: commit con secretos (claves, tokens) ni datos personales (CURP, tarjetas).
 - Prohibido: push con secretos (claves, tokens) ni datos personales (CURP, tarjetas).
-- Antes de `git commit`: `python3 ia/check_skill.py skills/milla-asesoria-juridica` debe pasar. El SKILL.md dejaría de ser compatible con claude.ai.
+- Antes de `git commit`: `python3 ia/check_skill.py skills/milla-asesoria-juridica .claude/skills/milla-asesoria-juridica .agents/skills/milla-asesoria-juridica` debe pasar. El SKILL.md o sus puentes dejarían de ser válidos.
 - Antes de `git commit`: `python3 ia/test_guard.py` debe pasar. Las pruebas de las reglas comunes fallaron.
 - Prohibido: commit sin entrada en el registro del repositorio (ver «Registro obligatorio»).
 
