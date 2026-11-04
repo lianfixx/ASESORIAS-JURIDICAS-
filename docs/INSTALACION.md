@@ -1,4 +1,4 @@
-# Preparar y usar la skill 0.3.2
+# Preparar y usar la skill 0.4.0
 
 La distribución conserva las condiciones de `LICENSE`. Estos pasos no acreditan una licencia de uso ni sustituyen revisión jurídica.
 
@@ -11,7 +11,7 @@ python3 -m unittest discover -s tests -v
 python3 scripts/build.py --output /tmp/milla-build
 ```
 
-La salida contiene `milla-asesoria-juridica-0.3.2.zip`, una copia idéntica con extensión `.skill`, `MILLA_GUIA_UNIVERSAL_0.3.2.txt` y `SHA256SUMS.txt`. El ZIP contiene una sola carpeta raíz con `SKILL.md`, sus referencias, recursos, script de control y avisos de licencia. No incluye los expedientes sintéticos ni los registros de un asunto.
+La salida contiene `milla-asesoria-juridica-0.4.0.zip`, una copia idéntica con extensión `.skill`, `MILLA_GUIA_UNIVERSAL_0.4.0.txt` y `SHA256SUMS.txt`. El ZIP contiene una sola carpeta raíz con `SKILL.md`, sus referencias, recursos, script de control y avisos de licencia. No incluye los expedientes sintéticos ni los registros de un asunto.
 
 ## Uso como archivos de referencia
 
@@ -23,7 +23,7 @@ No asumas que el asistente leyó el ZIP porque lo recibió: debe confirmar acces
 
 El mecanismo de instalación y la extensión admitida dependen del producto, versión, cuenta y espacio de trabajo. Comprueba su documentación oficial y su interfaz actual. No se afirma que la extensión `.skill` sea aceptada por todas las aplicaciones; su contenido es un ZIP y no un ejecutable.
 
-Esta integración no instala automáticamente la skill dentro de una cuenta de ChatGPT o Claude. La instalación del ZIP 0.2.2 mencionada en el informe aportado corresponde al entorno anterior de Claude, no a una prueba de la edición 0.3.2.
+Esta integración no instala automáticamente la skill dentro de una cuenta de ChatGPT o Claude. La instalación del ZIP 0.2.2 mencionada en el informe aportado corresponde al entorno anterior de Claude, no a una prueba de la edición 0.4.0.
 
 ## Sustituir una copia anterior
 

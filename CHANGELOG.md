@@ -1,5 +1,13 @@
 # Historial público
 
+## 0.4.0 — 4 de noviembre de 2026
+
+- Se añadió `references/claude-code.md`: frenos activos del repositorio, modo plan y entrevista (sólo para MEJORAR o documentos completos desde cero, dentro del límite de preguntas vigente), reparto en paralelo para AUDITAR e INTERNO con datos minimizados, `/goal`, navegador para consultar fuentes oficiales, seguimiento comercial con CRM sólo con autorización específica y uso de `/insights` conforme a `references/actualizacion.md`.
+- SKILL.md suma la sección «Terminado y trabajo en Claude Code» con el criterio de terminado por modo y los pasos que merecen máxima profundidad; la nueva referencia se agregó al listado y al inventario de `PUBLIC_FILES.json` (23 archivos).
+- No se configuran `/loop` ni tareas programadas: la skill sigue sin tareas recurrentes.
+- El método no cambió: reglas jurídicas, de verificación, privacidad, envío, estilo, licencia y controles se conservan. La edición sigue en piloto supervisado y la batería continúa en 23 pruebas.
+- Se actualizaron los metadatos, ejemplos, NOTICE, empaquetado, guía de instalación y nombre del artefacto de CI a 0.4.0.
+
 ## 0.3.2 — 3 de noviembre de 2026
 
 - Se ajustó el frontmatter al formato actual de Codex sin cambiar el alcance jurídico ni la licencia.

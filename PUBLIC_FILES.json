@@ -1,5 +1,5 @@
 {
-  "version": "0.3.2",
+  "version": "0.4.0",
   "scope": "Lista cerrada de archivos de la skill autorizados para empaquetar; no concede licencia de uso.",
   "files": [
     "skills/milla-asesoria-juridica/LICENSE",
@@ -13,6 +13,7 @@
     "skills/milla-asesoria-juridica/assets/plantillas.md",
     "skills/milla-asesoria-juridica/assets/release.json",
     "skills/milla-asesoria-juridica/references/actualizacion.md",
+    "skills/milla-asesoria-juridica/references/claude-code.md",
     "skills/milla-asesoria-juridica/references/documentos.md",
     "skills/milla-asesoria-juridica/references/familiar.md",
     "skills/milla-asesoria-juridica/references/flujo.md",

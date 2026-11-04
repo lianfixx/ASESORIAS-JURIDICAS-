@@ -1,6 +1,6 @@
 # MILLA Asesorías · asesoría jurídica guiada
 
-**Edición 0.3.2 · licencia propietaria · piloto supervisado · México**
+**Edición 0.4.0 · licencia propietaria · piloto supervisado · México**
 
 La skill está en [`skills/milla-asesoria-juridica/SKILL.md`](skills/milla-asesoria-juridica/SKILL.md). Esta edición incorpora las mejoras operativas del paquete 0.2.2 aportado por el titular y conserva las condiciones de licencia adoptadas en 0.3.0. No constituye aprobación jurídica de las respuestas ni instalación automática en una cuenta de IA.
 
@@ -14,7 +14,7 @@ La licencia ordinaria permite al profesional o firma autorizada utilizarla inter
 
 La biblioteca incluye la skill completa con sus referencias, plantillas y controles auxiliares; 35 escenarios conductuales; expedientes enteramente sintéticos para evaluación; un empaquetador reproducible y 23 pruebas técnicas de integración. Las pruebas técnicas no certifican corrección jurídica, vigencia de leyes ni activación automática en un asistente.
 
-Consulta [`docs/INTEGRACION_0.3.2.md`](docs/INTEGRACION_0.3.2.md) para conocer la corrección, las comprobaciones y los límites de esta edición. Los registros originales de Claude no se presentan como nuevas pruebas: se documentan su procedencia, huellas y limitaciones en [`docs/evaluacion/`](docs/evaluacion/PROCEDENCIA_0.2.2.json).
+Consulta [`docs/INTEGRACION_0.4.0.md`](docs/INTEGRACION_0.4.0.md) para conocer los cambios, las comprobaciones y los límites de esta edición. Los registros originales de Claude no se presentan como nuevas pruebas: se documentan su procedencia, huellas y limitaciones en [`docs/evaluacion/`](docs/evaluacion/PROCEDENCIA_0.2.2.json).
 
 ## Empaquetar y utilizar
 

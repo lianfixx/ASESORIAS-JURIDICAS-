@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LicenseRef-MILLA-Professional-1.0
-"""Controles de integración 0.3.2; no evalúan corrección jurídica ni activación en IA."""
+"""Controles de integración 0.4.0; no evalúan corrección jurídica ni activación en IA."""
 from __future__ import annotations
 import hashlib
 import importlib.util
@@ -42,9 +42,9 @@ class Integracion(unittest.TestCase):
         for filename, key in [('release.json', 'version'), ('estado.ejemplo.json', 'skill_version'),
                               ('configuracion.ejemplo.json', 'version'), ('evaluaciones.json', 'version')]:
             with self.subTest(filename=filename):
-                self.assertEqual(CONTROL.load_json(SKILL / 'assets' / filename)[key], '0.3.2')
-        self.assertIn('version: "0.3.2"', (SKILL / 'SKILL.md').read_text(encoding='utf-8'))
-        self.assertEqual(CONTROL.load_json(ROOT / 'PUBLIC_FILES.json')['version'], '0.3.2')
+                self.assertEqual(CONTROL.load_json(SKILL / 'assets' / filename)[key], '0.4.0')
+        self.assertIn('version: "0.4.0"', (SKILL / 'SKILL.md').read_text(encoding='utf-8'))
+        self.assertEqual(CONTROL.load_json(ROOT / 'PUBLIC_FILES.json')['version'], '0.4.0')
 
     def test_04_licencia_conservada(self):
         self.assertEqual((ROOT / 'LICENSE').read_bytes(), (SKILL / 'LICENSE').read_bytes())
@@ -125,11 +125,11 @@ class Integracion(unittest.TestCase):
                 CONTROL.load_json(path)
 
     def test_18_paquete_inventariado(self):
-        self.assertEqual(len(BUILD.package_files()), 22)
+        self.assertEqual(len(BUILD.package_files()), 23)
         with tempfile.TemporaryDirectory() as tmp:
             paths = BUILD.build(Path(tmp))
             with ZipFile(paths[0]) as archive:
-                self.assertEqual(len(archive.namelist()), 22)
+                self.assertEqual(len(archive.namelist()), 23)
                 self.assertTrue(all(p.startswith('milla-asesoria-juridica/') for p in archive.namelist()))
                 self.assertIsNone(archive.testzip())
                 self.assertFalse(any('/evaluacion/' in p or '/tests/' in p for p in archive.namelist()))

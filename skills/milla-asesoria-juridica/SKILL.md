@@ -3,10 +3,10 @@ name: milla-asesoria-juridica
 description: Guía al despacho en un asunto real de cliente (familiar o laboral, México) con urgencias, resumen, asesoría, diagnóstico, honorarios, mensajes a prospectos y retomar asuntos. No para tareas ni teoría.
 license: LicenseRef-MILLA-Professional-1.0
 metadata:
-  version: "0.3.2"
+  version: "0.4.0"
   language: "es-MX"
   jurisdiction: "Mexico-configurable"
-  release_date: "2026-11-03"
+  release_date: "2026-11-04"
   compatibility: "Lectura Markdown portable. Requiere fuentes actuales o navegador para verificar derecho vigente; Python 3.10+ solo para controles auxiliares. No concede permisos externos."
 ---
 
@@ -68,6 +68,7 @@ El límite orientativo no aplica cuando el usuario pide un documento completo, i
 - [Honorarios y comunicación](references/honorarios-comunicacion.md).
 - [Documentos y diseño institucional](references/documentos.md).
 - [Configuración y mejora continua](references/actualizacion.md).
+- [Trabajo en Claude Code](references/claude-code.md), sólo cuando se use esa herramienta.
 - [Plantillas](assets/plantillas.md).
 - [Configuración institucional en blanco](assets/configuracion.ejemplo.json).
 - [Estado de ejemplo](assets/estado.ejemplo.json).
@@ -114,6 +115,19 @@ El repositorio público contiene método, no expedientes. Los datos privados se 
 
 Esta edición conserva el régimen propietario adoptado en 0.3.0. Lee [uso y licencia](references/uso-licencia.md) y `LICENSE`: el acceso al repositorio o a una copia no sustituye la Licencia Profesional escrita, vigente y pagada. Distingue los servicios jurídicos del licenciatario de vender, redistribuir o dar acceso a la herramienta. No concedas permisos nuevos ni atribuyas una licencia a alguien sin evidencia. Los permisos históricos válidamente concedidos y los componentes con aviso propio se conservan; no prometas revocarlos retroactivamente. `LICENSES/Apache-2.0.txt` conserva el texto aplicable a esos componentes, no convierte esta edición completa en una nueva oferta Apache.
 
+## Terminado y trabajo en Claude Code
+
+Un pedido está terminado cuando:
+- existe el entregable del modo solicitado según el enrutamiento y se revisó antes de entregarlo;
+- se leyeron las fuentes y referencias que exige su fila; lo no leído consta como pendiente;
+- lleva BORRADOR PARA REVISIÓN si falta verificar fuentes, plazos, cifras o aprobación;
+- el estado del asunto quedó actualizado o se entregó un resumen exportable;
+- si se emite o actúa, consta la aprobación con acción, documento, versión y SHA-256 del archivo revisado.
+
+No hay entrevista adicional: rige el límite de «Antes de actuar» (de una a tres preguntas por turno, cinco como tope). El modo plan con entrevista sólo aplica a MEJORAR o a un documento completo pedido desde cero, dentro de ese límite. Merecen máxima profundidad (`ultrathink`) DIAGNÓSTICO, INTERNO y AUDITAR (conexión fuente–hecho–prueba–aplicación–límite; vigencia, competencia y transitorios) y la detección de urgencias y plazos.
+
+Para frenos activos, reparto en paralelo, `/goal`, `/loop`, programación y navegador, leer [Claude Code](references/claude-code.md).
+
 ## Estado de esta integración
 
-Versión 0.3.2: conserva las mejoras operativas de 0.3.1 y corrige la compatibilidad del control de huellas con rutas temporales seguras de macOS, sin atribuir aprobación jurídica a la titular. Mantiene el estado de piloto supervisado. Los controles técnicos no acreditan vigencia normativa, corrección de respuestas ni instalación permanente en una cuenta de IA.
+Versión 0.4.0: conserva las mejoras de 0.3.2 y añade una referencia de trabajo en Claude Code (frenos activos, criterio de terminado, reparto en paralelo y navegador) sin cambiar el método jurídico ni atribuir aprobación jurídica a la titular. Mantiene el estado de piloto supervisado. Los controles técnicos no acreditan vigencia normativa, corrección de respuestas ni instalación permanente en una cuenta de IA.
